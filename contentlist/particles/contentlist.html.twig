@@ -1,0 +1,44 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+	{% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+	<div class="g-contentlist {{ particle.class|e }}">
+
+	    <div class="g-grid">
+	        <div class="g-block size-33 g-contentlist-img" style="background-image: url({{ url(particle.image)|e }})">
+	            {% if particle.imagetag %}<div class="g-contentlist-img-tag">{{ particle.imagetag|e }}</div>{% endif %}
+	        </div>
+	        <div class="g-block size-67 g-contentlist-text">
+	            <div class="g-content">
+	                {% if particle.headline %}<h3 class="g-contentlist-headline">{{ particle.headline|raw }}</h3>{% endif %}
+	                {% if particle.subtitle %}<h5 class="g-contentlist-subtitle">{{ particle.subtitle|raw }}</h5>{% endif %}
+	                {% if particle.desc %}<div class="g-contentlist-desc">{{ particle.desc|raw }}</div>{% endif %}
+	                {% if particle.readmore %}<a href="{{ particle.link|e }}" class="button button-2">{{ particle.readmore|raw }}</a>{% endif %}
+	            </div>
+	        </div>    
+	    </div> 
+
+	    {% if particle.listgriditems %}
+	    <div class="g-grid g-contentlist-list">
+	        <div class="g-block">
+	            <div class="g-content">
+	                <div class="g-listgrid {{ particle.cols|e }}">
+						{% for listgriditem in particle.listgriditems %}
+		                    <div class="g-listgrid-item">
+		                        <a href="{{ listgriditem.link|e }}">
+		                        	<span class="{{ listgriditem.icon }}"></span>
+		                        	<span>{{ listgriditem.text|raw }}</span>
+		                        </a>
+		                    </div>
+						{% endfor %} 
+	                </div>
+	            </div>
+	        </div>
+	    </div>   
+		{% endif %}
+		
+	</div>
+
+{% endblock %}

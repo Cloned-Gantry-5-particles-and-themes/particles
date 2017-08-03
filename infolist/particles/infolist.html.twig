@@ -1,0 +1,20 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+	{% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+	<div class="g-infolist {{ particle.class|e }}">
+
+		{% for infolist in particle.infolists %}
+			<div class="g-infolist-item">
+				<div class="g-infolist-item-text">
+					{% if infolist.title %}<div class="g-infolist-item-title"><a href="{{ infolist.link|e }}">{{ infolist.title|raw }}</a></div>{% endif %}
+					{% if infolist.description %}<div class="g-infolist-item-desc">{{ infolist.description|raw }}</div>{% endif %}	
+				</div>	
+			</div>
+		{% endfor %}
+
+	</div>
+
+{% endblock %}

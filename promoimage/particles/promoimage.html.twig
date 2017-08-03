@@ -1,0 +1,23 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+	{% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+	<div class="g-promoimage {{ particle.class|e }}">
+	    <figure class="g-promoimage-effect">
+	    	<span class="g-promoimage-iconbutton {{ particle.iconbutton|e }}"></span>
+	        <img src="{{ url(particle.image)|e }}" alt="{{ particle.title|e }}">
+	        <div class="g-promoimage-caption">
+	            {% if particle.promoimagetitle %}<div class="g-promoimage-title">{{ particle.promoimagetitle|raw }}</div>{% endif %}
+	            <div class="g-promoimage-icon">
+					{% for promoimageicon in particle.promoimageicons %}
+					    <a href="{{ promoimageicon.link }}"><span class="{{ promoimageicon.icon }}"></span></a>
+					{% endfor %}  	                
+	            </div>
+	            {% if particle.desc %}<div class="g-promoimage-desc">{{ particle.desc|raw }}</div>{% endif %}
+	        </div>           
+	    </figure>
+	</div>
+
+{% endblock %}

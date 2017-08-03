@@ -1,0 +1,17 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+	{% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+	<div class="g-contact {{ particle.class|e }}">
+		{% for contactitem in particle.contactitems %}
+		    <div class="g-contact-item">
+		        {% if contactitem.icon %}<div class="g-contact-icon"><span class="{{ contactitem.icon }}"></span></div>{% endif %}
+		        {% if contactitem.label %}<div class="g-contact-label">{{ contactitem.label|raw }}</div>{% endif %}
+		        {% if contactitem.text %}<div class="g-contact-text">{{ contactitem.text|raw }}</div>{% endif %}        
+		    </div>
+		{% endfor %}      
+	</div>
+
+{% endblock %}

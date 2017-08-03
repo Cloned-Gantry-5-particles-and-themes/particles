@@ -1,0 +1,21 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+	{% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+	<div class="g-imagegrid {{ particle.class|e }}">
+		
+		{% if particle.desc %}<div class="g-imagegrid-desc">{{ particle.desc|raw }}</div>{% endif %}
+
+		<div class="g-imagegrid-wrapper {{ particle.cols|e }}">
+			{% for imagegriditem in particle.imagegriditems %}
+			    <div class="g-imagegrid-item">
+			        <a class="g-imagegrid-link" href="{{ url(imagegriditem.image)|e }}" data-rokbox data-rokbox-album="{{ particle.album|e }}" data-rokbox-caption="{{ imagegriditem.caption|raw }}"><img src="{{ url(imagegriditem.image)|e }}" alt="{{ imagegriditem.caption|e }}"></a>
+			    </div>	
+			{% endfor %} 
+		</div>
+
+	</div>	
+
+{% endblock %}
