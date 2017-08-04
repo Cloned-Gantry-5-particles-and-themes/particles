@@ -1,0 +1,40 @@
+.g-simplecounter-block {
+	display: block;
+	margin: 2rem auto 0.5rem auto;
+}
+.g-simplecounter-calendar {
+	text-align: center;
+	.counter-block {
+		display: inline-block;
+		margin: 0 0.5rem;
+		padding: 0;
+	}
+	.number, .word {
+		display: block;
+		margin: 0;
+		padding: 0;
+	}
+	.number {
+		width: 100px;
+		height: 80px;
+		line-height: 80px;
+		font-size: 2rem;
+		font-weight: normal;
+		border-radius: $border-radius;
+		margin-bottom: 0.5rem;
+		color: $white;
+		@include background(linear-gradient(darken($accent-color-1, 10%) 0%, darken($accent-color-1, 10%) 50%, $accent-color-1 50%, $accent-color-1 100%));
+		@include breakpoint(mobile-only) {
+			font-size: 1.5rem;
+			width: 85px;
+			height: 50px;
+			line-height: 50px;
+		}
+	}
+	.word {
+		text-transform: uppercase;
+		@include breakpoint(mobile-only) {
+			font-size: 75%;
+		}
+	}
+}

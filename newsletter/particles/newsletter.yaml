@@ -38,7 +38,7 @@ form:
       type: input.text
       label: Button Text
       description: Customize the Button text.
-      placeholder: Join           
+      default: Join
 
     uri:
       type: input.text
