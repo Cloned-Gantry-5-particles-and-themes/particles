@@ -1,0 +1,59 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+    <div class="{{ particle.class|e }}">
+        <div class="g-blockcontent">
+            {% if particle.icon or particle.image or particle.headline or particle.description or particle.linktext or particle.title %}
+                <div class="g-grid">
+                    <div class="g-block">
+                        <div class="g-content g-blockcontent-header">
+                            {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+                            {% if particle.image %}<img src="{{ url(particle.image) }}" class="g-blockcontent-image" alt="{{ particle.headline|e }}" />{% endif %}
+                            {% if particle.icon %}<span class="g-blockcontent-title-icon"><i class="{{ particle.icon }}"></i></span>{% endif %}
+                            {% if particle.headline %}<h2 class="g-title g-blockcontent-headline">{{ particle.headline|raw }}</h2>{% endif %}
+                            {% if particle.description %}<div class="g-blockcontent-description">{{ particle.description|raw }}</div>{% endif %}
+                            {% if particle.linktext %}
+                                <p class="g-blockcontent-buttons">
+                                    <a target="{{ particle.linktarget|default('_self')|e }}" href="{{ particle.link|e }}" class="button {{ particle.linkclass|e }}">{{ particle.linktext|e }}</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if particle.subcontents is not empty %}
+                <div class="g-grid g-blockcontent-subcontent">
+                    {% for subcontent in particle.subcontents %}
+                        <div class="g-block g-blockcontent-subcontent-block {{ subcontent.class }}">
+                            <div class="g-content g-blockcontent-subcontent-block-content">
+                                {% if subcontent.rokboximage %}
+                                    <a data-rokbox="" data-rokbox-caption="{{ subcontent.rokboxcaption|e }}" href="{{ url(subcontent.rokboximage) }}">
+                                {% endif %}
+                                {% if subcontent.img %}<img src="{{ url(subcontent.img) }}" class="g-blockcontent-subcontent-img" alt="{{ subcontent.title|e }}" />{% endif %}
+                                {% if subcontent.rokboximage %}
+                                    </a>
+                                {% endif %}
+                                {% if subcontent.name %}
+                                    <h4 class="g-blockcontent-subcontent-title">
+                                        {% if subcontent.icon %}<span class="g-blockcontent-subcontent-title-icon"><i class="{{ subcontent.icon }}"></i></span>{% endif %}
+                                        <span class="g-blockcontent-subcontent-title-text">{{ subcontent.name|raw }}</span>
+                                        {% if subcontent.subtitle %} <span class="g-blockcontent-subcontent-subtitle">{{ subcontent.subtitle|raw }}</span> {% endif %}
+                                    </h4>
+                                {% endif %}
+                                {% if subcontent.description %}<div class="g-blockcontent-subcontent-desc">{{ subcontent.description|raw }}</div>{% endif %}
+                                {% if subcontent.button %}
+                                    <p class="g-blockcontent-buttons">
+                                        <a target="{{ subcontent.buttontarget|default('_self')|e }}" href="{{ subcontent.buttonlink|e }}" class="button {{ subcontent.buttonclass|e }}">{{ subcontent.button|raw }}</a>
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

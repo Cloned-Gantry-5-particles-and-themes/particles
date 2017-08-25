@@ -1,0 +1,77 @@
+.g-simpleweather {
+    @include breakpoint(mobile-only) {
+        width: 100%;
+        text-align: center;
+    }
+
+    .g-simpleweather-content {
+        display: inline-block;
+        margin-right: $content-margin;
+        font-size: $core-font-size + 0.3;
+        vertical-align: middle;
+
+        .dir-rtl & {
+            margin-right: 0;
+            margin-left: $content-padding;
+        }
+    }
+
+    i {
+        font-family: get-font-family($font-family-weather);
+        font-size: $core-font-size + 4;
+        font-weight: normal;
+        font-style: normal;
+        line-height: 1.0;
+        text-transform: none;
+        vertical-align: middle;
+    }
+
+    .weathericon-0:before { content: ":"; }
+    .weathericon-1:before { content: "p"; }
+    .weathericon-2:before { content: "S"; }
+    .weathericon-3:before { content: "Q"; }
+    .weathericon-4:before { content: "S"; }
+    .weathericon-5:before { content: "W"; }
+    .weathericon-6:before { content: "W"; }
+    .weathericon-7:before { content: "W"; }
+    .weathericon-8:before { content: "W"; }
+    .weathericon-9:before { content: "I"; }
+    .weathericon-10:before { content: "W"; }
+    .weathericon-11:before { content: "I"; }
+    .weathericon-12:before { content: "I"; }
+    .weathericon-13:before { content: "I"; }
+    .weathericon-14:before { content: "I"; }
+    .weathericon-15:before { content: "W"; }
+    .weathericon-16:before { content: "I"; }
+    .weathericon-17:before { content: "W"; }
+    .weathericon-18:before { content: "U"; }
+    .weathericon-19:before { content: "Z"; }
+    .weathericon-20:before { content: "Z"; }
+    .weathericon-21:before { content: "Z"; }
+    .weathericon-22:before { content: "Z"; }
+    .weathericon-23:before { content: "Z"; }
+    .weathericon-24:before { content: "E"; }
+    .weathericon-25:before { content: "E"; }
+    .weathericon-26:before { content: "3"; }
+    .weathericon-27:before { content: "a"; }
+    .weathericon-28:before { content: "A"; }
+    .weathericon-29:before { content: "a"; }
+    .weathericon-30:before { content: "A"; }
+    .weathericon-31:before { content: "6"; }
+    .weathericon-32:before { content: "1"; }
+    .weathericon-33:before { content: "6"; }
+    .weathericon-34:before { content: "1"; }
+    .weathericon-35:before { content: "W"; }
+    .weathericon-36:before { content: "1"; }
+    .weathericon-37:before { content: "S"; }
+    .weathericon-38:before { content: "S"; }
+    .weathericon-39:before { content: "S"; }
+    .weathericon-40:before { content: "M"; }
+    .weathericon-41:before { content: "W"; }
+    .weathericon-42:before { content: "I"; }
+    .weathericon-43:before { content: "W"; }
+    .weathericon-44:before { content: "a"; }
+    .weathericon-45:before { content: "S"; }
+    .weathericon-46:before { content: "U"; }
+    .weathericon-47:before { content: "S"; }
+}

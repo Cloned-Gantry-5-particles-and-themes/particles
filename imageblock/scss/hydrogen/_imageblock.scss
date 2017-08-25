@@ -1,0 +1,93 @@
+@import "particlemixins";
+
+// Imageblock and RokSprocket Grids Inheritance
+%g-imageblock-text-dir {
+	width: 100%;
+	color: $white;
+    font-weight: 700;
+    padding: 1.25rem;
+    position: absolute;	
+}
+%g-imageblock-text-desc {
+	display: block;
+	font-size: $core-font-size - 0.2;
+}
+
+// Imageblock
+.g-imageblock {	
+	> .g-grid {
+		@include breakpoint(mobile-only) {
+			display: block;
+		}		
+	}
+	.g-imageblock-content {
+		position: relative;
+		&:hover {
+			img {
+				opacity: 0.5;
+				@include transform(scale(1.25) rotate(5deg));
+			}	
+		}		
+	}
+	.g-imageblock-img {
+		display: block;
+		position: relative;
+		overflow: hidden;		
+		img {
+			opacity: 1;
+			@include transition(all 0.2s);
+		}
+	}	
+	.g-imageblock-icon {
+		color: $white;
+		position: absolute;
+		top: 1.25rem;
+	    left: 1.25rem;	
+	    font-size: 1.25rem;	
+	}
+	.g-imageblock-tag {
+		color: darken($accent-color-2, 35%);
+	    background: $accent-color-2;
+	    border-radius: 0 0 $border-radius $border-radius;
+		font-size: $core-font-size - 0.2;
+	    font-weight: bold;
+	    text-transform: uppercase;
+	    left: 1.25rem;
+	    padding: 0.25rem 0.5rem;
+	    position: absolute;
+	    top: 0;
+	}	
+	.g-imageblock-text-top, .g-imageblock-text-bottom {
+		@extend %g-imageblock-text-dir;
+	}	
+	.g-imageblock-text-top {
+		top: 3rem;
+		.g-imageblock-title {
+			font-family: get-font-family($font-family-default);
+			font-weight: normal;	
+			font-size: $core-font-size + 0.25;			
+		}	
+	}	
+	.g-imageblock-text-bottom {
+		bottom: 0;
+		.g-imageblock-title {
+			@include g-imageblock-bottom-title;
+		}
+	}	
+	.g-imageblock-title {
+		display: block;
+		line-height: 1.5rem;
+		@include breakpoint(large-desktop-range) {
+			line-height: 1.75rem;
+		}
+		a {
+			color: inherit;
+			&:hover {
+				color: lighten($accent-color-2, 25%);
+			}
+		}
+	}
+	.g-imageblock-desc {
+		@extend %g-imageblock-text-desc;
+	}		
+}

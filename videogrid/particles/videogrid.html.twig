@@ -1,0 +1,61 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+    {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+    <div class="g-videogrid {{ particle.class|e }}">
+
+        {% if particle.desc %}<div class="g-videogrid-desc">{{ particle.desc|raw }}</div>{% endif %}
+
+        <div class="g-videogrid-wrapper {{ particle.cols|e }} {{ particle.layout }}">
+            {% for videogriditem in particle.videogriditems %}
+                <div class="g-videogrid-item">
+                    <div class="g-videogrid-item-container">
+                    <a class="g-videogrid-link" href="{% if 'http' in videogriditem.video %}{{ videogriditem.video }}{% else %}{{ url(videogriditem.video)|split('?')[0]  }}{% endif %}" data-rokbox data-rokbox-album="{{ particle.album|e }}" data-rokbox-caption="{{ videogriditem.caption|raw }}">
+                        <img src="{{ url(videogriditem.thumbnail)|e }}" alt="{{ videogriditem.caption|e }}" />
+                        <div class="indicator">
+                            <div>
+                                {% if particle.layout == 'g-videogrid-standard' %}
+                                    {{ videogriditem.caption }}
+                                {% else %}
+                                    <i class="{{ videogriditem.icon|e }}" aria-hidden="true"></i>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                    {% if particle.layout == 'g-videogrid-captions' %}
+                        {% if videogriditem.videotitle %}
+                        <div class="g-videogrid-title">
+                            {{ videogriditem.videotitle }}
+                            {% if videogriditem.videoduration %}
+                            <span class="g-videogrid-duration">
+                                {{ videogriditem.videoduration }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        {% if videogriditem.videodescription %}
+                        <div class="g-videogrid-description">
+                            {{ videogriditem.videodescription }}
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript_footer %}
+    <script type="text/javascript">
+        window.getSize = function() {
+            return {
+                x: window.innerWidth,
+                y: window.innerHeight
+            }
+        };
+    </script>
+{% endblock %}

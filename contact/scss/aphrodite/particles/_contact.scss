@@ -1,0 +1,26 @@
+.g-contact {
+	.g-contact-item {
+		position: relative;
+        padding-left: 50px;
+        margin-bottom: 1.5rem;
+	}
+    .g-contact-icon {
+        position: absolute;
+        left: 0;
+        font-size: 1.25rem;
+        border-right: 1px solid rgba(255, 255, 255, 0.15);
+        width: 35px;
+        height: 45px;
+        line-height: 45px;
+    }
+    .g-contact-label {
+        text-transform: uppercase;
+        font-size: $core-font-size - 0.2;
+        font-weight: bold;
+        opacity: 0.5;
+    }
+    .g-contact-text {
+        font-family: get-font-family($font-family-title);
+        font-weight: $font-weight-bold;
+    }    
+}

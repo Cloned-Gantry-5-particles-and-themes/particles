@@ -1,0 +1,57 @@
+.g-iconmenu {
+	@include display(flex);
+	@include flex-flow(row wrap);	
+	@include breakpoint(mobile-only) {
+		margin: auto;
+		width: 50%;
+	}		
+	.g-iconmenu-item {
+		@include flex(1);
+		min-width: 0;
+		min-height: 0;		
+	    border-right: 1px solid rgba(0, 0, 0, 0.1);
+	    display: inline-block;
+	    margin: 1rem 0;
+	    padding: 0 1rem;
+	    text-align: center;			
+		&:last-child {
+			border-right: 0;
+		}    
+		&:hover {
+			.g-iconmenu-icon {
+			    background: rgba(255, 255, 255, 0.25);
+			    color: darken($accent-color-1, 25%);			
+			}
+		}		
+		@include breakpoint(mobile-only) {
+			border-right: 0;
+			padding: 0;
+		}		
+	}
+	span {
+		display: block;
+	}
+	.g-iconmenu-icon {
+	    background: rgba(0, 0, 0, 0.1);
+	    color: $white;
+	    border-radius: 100%;
+	    text-align: center;
+	    margin: auto;
+	    width: 30px;
+	    height: 30px;
+	    line-height: 30px;    
+	    @include transition(all 0.2s);
+	}	
+	.g-iconmenu-text {
+		font-family: get-font-family($font-family-title);
+		font-weight: $font-weight-bold;
+		font-size: $core-font-size - 0.2;
+		padding: 5px 0;
+		@include breakpoint(mobile-only) {
+			display: none;
+		}		
+	}
+	.last-iconmenu & {
+		border-right: 0;
+	}
+}

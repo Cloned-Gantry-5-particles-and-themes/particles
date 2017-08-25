@@ -1,0 +1,47 @@
+.accordion {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: $core-font-size;
+
+    .accordion-item-title {
+        color: lighten($base-text-color, 30%);
+        cursor: pointer;
+        font-size: $core-font-size - 0.2;
+        text-transform: uppercase;
+        font-weight: $font-weight-bold;
+        @include transition(color 0.35s);
+
+        .toggle {
+            background: lighten($base-text-color, 30%);
+            color: $base-background;
+            float: right;
+            padding: 0 4px;
+            @include transition(background 0.35s);
+
+            .dir-rtl & {
+                float: left;
+            }
+        }
+    }
+
+    li {
+        padding: 1rem 0;
+
+        &.active {
+            .accordion-item-title {
+                color: $accent-color-1;
+            }
+
+            .toggle {
+                background: $accent-color-1;
+            }
+        }
+
+        div {
+            padding: 0.5rem 0;
+        }
+
+        border-bottom: 1px solid $rule-color;
+    }
+}

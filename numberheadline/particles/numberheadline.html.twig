@@ -1,0 +1,49 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+    {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+	<div class="g-numberheadline {{ particle.class|e }}">
+		<div class="g-grid">
+			<div class="g-listgrid {{ particle.cols|default('g-listgrid-3cols')|e }}">
+				{% for listgriditem in particle.listgriditems %}
+				<div class="g-block g-listgrid-item {{ listgriditem.variation }} {{ listgriditem.class }}">
+					<div class="g-content">
+						<div class="g-numberheadline-block g-numberheadline-style-{{ listgriditem.accent|default('2') }}">
+							<div class="g-numberheadline-item">
+								<div class="g-numberheadline-number">
+									<span>{{ listgriditem.number }}</span>
+								</div>
+								<div class="g-headline">{{ listgriditem.headline }}</div>
+								<div class="g-tag">{{ listgriditem.tag }}</div>
+							</div>
+							<div class="g-numberheadline-desc">
+								<span>{{ listgriditem.desc }}</span>
+							</div>
+							{% if listgriditem.text1 or listgriditem.text2 or listgriditem.icon1 or listgriditem.icon2 %}
+							<ul class="g-horizontalmenu">
+								<li>
+									<a href="">
+										<i class="{{ listgriditem.icon1 }}"></i> {{ listgriditem.text1 }}
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<i class="{{ listgriditem.icon2 }}"></i> {{ listgriditem.text2 }}
+									</a>
+								</li>
+							</ul>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="g-numberheadline-link">
+			{% if particle.readmore %}<a href="{{ particle.link|e }}" class="button button-3"><span class="{{ particle.readmoreicon }}"></span>{{ particle.readmore|raw }}</a>{% endif %}
+		</div>
+	</div>
+
+{% endblock %}

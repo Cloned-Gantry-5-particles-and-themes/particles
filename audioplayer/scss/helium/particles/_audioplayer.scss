@@ -1,0 +1,180 @@
+.g-audioplayer {
+    position: relative;
+    padding: $content-padding;
+
+    .g-audioplayer-info {
+        @include display(flex);
+        @include flex-wrap(wrap);
+        @include breakpoint(mobile-only) {
+            display: block;
+        }
+    }
+    .g-audioplayer-left {
+        padding-right: $content-padding + $content-margin;
+        .dir-rtl & {
+            padding: 0;
+            padding-left: $content-padding + $content-margin;
+        }
+        @include breakpoint(tablet-range) {
+            padding: 0;
+            margin-bottom: $content-padding + $content-margin;
+        }
+        @include breakpoint(mobile-only) {
+            padding: 0;
+            margin-bottom: $content-padding + $content-margin;
+        }
+        .g-audioplayer-cover {
+            border-radius: 3px;
+            min-width: 200px;
+            max-width: 200px;
+            @include breakpoint(tablet-range) {
+                width: 100%;
+            }
+            @include breakpoint(mobile-only) {
+                width: 100%;
+            }
+        }
+    }
+    .g-audioplayer-right {
+        @include flex-grow(1);
+        .g-audioplayer-nowplaying {
+            display: block;
+            font-size: $core-font-size + 0.2;
+            font-weight: $font-weight-regular;
+        }
+        .g-audioplayer-trackinfo {
+            display: block;
+            font-size: $core-font-size + 0.4;
+            font-weight: $font-weight-medium;
+            color: $white;
+        }
+    }
+
+    .g-audioplayer-playlist {
+        display: block;
+        font-size: $core-font-size + 0.4;
+        @include breakpoint(mobile-only) {
+          font-size: $core-font-size + 0.3;
+        }
+        font-weight: $font-weight-medium;
+        ol {
+            padding-left: 0;
+            li {
+                padding: $content-margin + 0.3 0;
+                list-style-position: inside;
+                border-bottom: 1px solid transparentize($white, 90%);
+                a {
+                    color: $white;
+                }
+                .fa {
+                    padding-left: $content-margin;
+                    .dir-rtl & {
+                        padding-left: 0;
+                        padding-right: $content-margin;
+                    }
+                    color: $accent-color-1;
+                    opacity: 0;
+                    @include transition(all 0.3s ease-in-out);
+                }
+                &.playing .fa {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .audiojs {
+        .g-audioplayer-buttons {
+            @include display(flex);
+            .g-audioplayer-button {
+                width: 72px;
+                height: 62px;
+                border-radius: 5px;
+                background: $accent-color-2;
+                @include transition(all 0.2s ease-out);
+                color: $white;
+                margin: $content-margin - 0.2;
+                @include display(flex);
+                @include align-items(center);
+                @include justify-content(center);
+                .fa-step-forward, .fa-step-backward {
+                    .dir-rtl & {
+                        @include transform(scaleX(-1));
+                    }
+                }
+                &:first-child {
+                    margin-left: 0;
+                    .dir-rtl & {
+                        margin: $content-margin - 0.2;
+                        margin-right: 0;
+                    }
+                }
+                &:last-child {
+                    margin-right: 0;
+                    .dir-rtl & {
+                        margin: $content-margin - 0.2;
+                        margin-left: 0;
+                    }
+                }
+                &:hover {
+                    background: $accent-color-1;
+                }
+            }
+        }
+        .play-pause {
+            .loading, .error, .pause {
+                display: none;
+            }
+        }
+        &.playing {
+            .pause {
+                display: block;
+            }
+            .play {
+                display: none;
+            }
+        }
+        &.loading {
+            .loading {
+                display: block;
+            }
+            .pause, .play {
+                display: none;
+            }
+        }
+        &.error {
+            .error {
+                display: block;
+            }
+            .pause, .play {
+                display: none;
+            }
+            .scrubber {
+                display: none;
+            }
+        }
+        .error-message {
+            margin: $content-margin 0;
+            color: #ef4a44;
+        }
+        .scrubber {
+            margin: $content-margin 0;
+            padding-bottom: 0.5rem;
+            position: relative;
+            .progress {
+                height: 6px;
+                background: $accent-color-1;
+            }
+            .loaded {
+                height: 6px;
+                background: transparentize($white, 90%);
+                position: absolute;
+                top: 0;
+            }
+        }
+        .time {
+            font-size: $core-font-size + 0.2;
+            font-weight: $font-weight-regular;
+        }
+    }
+
+}

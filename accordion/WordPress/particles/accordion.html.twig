@@ -1,0 +1,202 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+    {% for attributes in particle.extra %}
+        {% for key, value in attributes %}
+            {% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% block particle %}
+
+	{# Load Content From WordPress #}
+
+	{% set post_settings = particle.post %}
+	{% set filter = post_settings.filter %}
+	{% set sort = post_settings.sort %}
+	{% set limit = post_settings.limit %}
+	{% set display = post_settings.display %}
+
+	{# Sticky Posts #}
+	{% set sticky_posts = filter.sticky ? false : true %}
+
+	{# Query Posts #}
+	{% set query_parameters = {
+		'cat': filter.categories|replace(' ', ','),
+		'posts_per_page': limit.total|default('-1'),
+		'offset': limit.start|default('0'),
+		'orderby': sort.orderby,
+		'order': sort.ordering,
+		'ignore_sticky_posts': sticky_posts
+	} %}
+
+	{% set posts = wordpress.call('Timber::get_posts', query_parameters) %}
+
+    {# Accordion Posts #}
+    <div class="g-accordion g-wordpress-posts{% if particle.css.class %} {{ particle.css.class }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+        {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+        <ul class="accordion" id="{{ id }}">
+            {% for post in posts %}
+                <li id="accordion-id{{ loop.index }}">
+					<div class="accordion-post-title"><a href="{{ post.link }}">{% if display.title.enabled %}{{ display.title.limit ? post.title|truncate_text(display.title.limit) : post.title }}</a>{% endif %}
+						<div class="toggle"><i class="fa fa-plus"></i></div>
+					</div>
+					<div class="accordion-post-content">
+					{% if display.date.enabled or display.author.enabled or display.category.enabled or display.comments.enabled %}
+						<div class="accordion-post-meta">
+                                <div class="g-accordion-post-details">
+                                    {% if display.date.enabled %}
+                                        <span class="g-accordion-post-date">
+                                            {% if display.date.enabled == 'modified' %}
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>{{ post.post_modified|date(display.date.format) }}
+                                            {% else %}
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>{{ post.post_date|date(display.date.format) }}
+                                            {% endif %}
+                                        </span>
+                                    {% endif %}
+
+                                    {% if display.author.enabled %}
+										<span class="g-accordion-post-author">
+											<i class="fa fa-user" aria-hidden="true"></i>{{ post.author.name }}
+										</span>
+                                    {% endif %}
+
+                                    {% if display.category.enabled %}
+                                        {% set category_link = display.category.enabled == 'link' %}
+                                        {%- set post_categories -%}
+                                            {% for category in post.categories %}
+                                                {%- if category_link -%}
+                                                    <a href="{{ category.link }}">
+                                                        {{ category.title }}
+                                                    </a>
+                                                {%- else -%}
+                                                    {{ category.title }}
+                                                {%- endif -%}
+                                                {% if not loop.last %}{{ ','|trim }}{% endif %}
+                                            {% endfor %}
+                                        {%- endset -%}
+
+                                        <span class="g-accordion-post-category">
+                                            <i class="fa fa-folder-open" aria-hidden="true"></i>{{ post_categories|raw }}
+                                        </span>
+                                    {% endif %}
+
+                                    {% if display.comments.enabled %}
+                                        {%- set comment_count -%}
+                                            {%- if post.comment_count == '0' -%}
+                                                {{ __('No comments', 'gantry5') }}
+                                            {%- elseif post.comment_count == '1' -%}
+                                                {{ post.comment_count ~ ' ' ~ __('Comment', 'gantry5') }}
+                                            {%- else -%}
+                                                {{ post.comment_count ~ ' ' ~ __('Comments', 'gantry5') }}
+                                            {%- endif -%}
+                                        {%- endset -%}
+
+                                        <span class="g-accordion-post-comments">
+                                            <i class="fa fa-comments" aria-hidden="true"></i>{{ comment_count }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+						</div>
+					{% endif %}
+					{% if display.image.enabled and post.thumbnail.src or display.text.type or display.read_more.enabled %}
+						<div class="accordion-post-description">
+							{% if display.image.enabled and post.thumbnail.src %}
+								<div class="g-accordion-post-image">
+									<a href="{{ post.link }}">
+										<img src="{{ url(post.thumbnail.src) }}" />
+									</a>
+								</div>
+							{% endif %}
+							{% if display.text.type %}
+							{% set post_text = display.text.type == 'excerpt' ? post.post_excerpt : post.content %}
+								<div class="g-accordion-post-text">
+									{% if display.text.formatting == 'text' %}
+										{{ post_text|truncate_text(display.text.limit)|raw }}
+									{% else %}
+										{{ post_text|truncate_html(display.text.limit)|raw }}
+									{% endif %}
+								</div>
+							{% endif %}
+
+							{% if display.read_more.enabled %}
+								<div class="g-accordion-post-read-more">
+									<a href="{{ post.link }}">
+										<button class="button{% if display.read_more.css %} {{ display.read_more.css }}{% endif %}">{{ display.read_more.label|default('Read More...') }}</button>
+									</a>
+								</div>
+							{% endif %}
+						</div>
+					{% endif %}
+					</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block javascript_footer %}
+    <script type="text/javascript">
+        (function($) {
+            function openFirstPanel() {
+                jQuery('#{{ id }}.accordion > li:first-child div').addClass('active').css('opacity', 0).slideDown("slow").animate({ opacity: 1 }, {
+                    queue: false,
+                    duration: 'slow'
+                });
+                jQuery('#{{ id }}.accordion > li:first-child').addClass('active').slideDown("slow").animate({ opacity: 1 }, {
+                    queue: false,
+                    duration: 'slow'
+                });
+                jQuery('#{{ id }}.accordion > li:first-child .toggle i').removeClass('fa-plus');
+                jQuery('#{{ id }}.accordion > li:first-child .toggle i').addClass('fa-minus');
+            }
+
+            var allPanels = jQuery('#{{ id }}.accordion li .accordion-post-content').hide();
+            openFirstPanel();
+
+            jQuery('#{{ id }}.accordion > li').click(function() {
+                $this = jQuery(this);
+                $target = jQuery('.accordion-post-content', this);
+
+                if ($target.hasClass('active')) {
+                    $target.removeClass('active').slideUp("slow").animate({ opacity: 0 }, {
+                        queue: false,
+                        duration: 'slow'
+                    });
+                } else {
+                    allPanels.removeClass('active').slideUp("slow").animate({ opacity: 0 }, {
+                        queue: false,
+                        duration: 'slow'
+                    });
+                    $target.addClass('active').slideDown("slow").animate({ opacity: 1 }, {
+                        queue: false,
+                        duration: 'slow'
+                    });
+                }
+                if ($this.hasClass('active')) {
+                    $this.removeClass('active');
+                    jQuery('.toggle i', this).removeClass('fa-minus');
+                    jQuery('.toggle i', this).addClass('fa-plus');
+                } else {
+                    jQuery('#{{ id }}.accordion li').removeClass('active');
+                    jQuery('#{{ id }} .toggle i').removeClass('fa-minus');
+                    jQuery('#{{ id }} .toggle i').addClass('fa-plus');
+                    $this.addClass('active');
+                    jQuery('.toggle i', this).removeClass('fa-plus');
+                    jQuery('.toggle i', this).addClass('fa-minus');
+
+                }
+                return false;
+            });
+
+        })(jQuery);
+        jQuery( ".g-accordion-post-image" ).click(function( event ) {
+            event.stopPropagation();
+        });
+        jQuery( ".g-accordion-post-read-more" ).click(function( event ) {
+            event.stopPropagation();
+        });
+    </script>
+{% endblock %}

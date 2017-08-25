@@ -1,0 +1,206 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% set attr_extra = '' %}
+{% if particle.extra %}
+    {% for attributes in particle.extra %}
+        {% for key, value in attributes %}
+            {% set attr_extra = attr_extra ~ ' ' ~ key|e ~ '="' ~ value|e('html_attr') ~ '"' %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% block particle %}
+
+	{# Load Content From Joomla #}
+
+	{% set article_settings = particle.article %}
+	{% set filter = article_settings.filter %}
+	{% set sort = article_settings.sort %}
+	{% set limit = article_settings.limit %}
+	{% set display = article_settings.display %}
+
+	{# Category Finder #}
+	{% set category_options = filter.categories ? {id: [filter.categories|split(','), 0]} : {} %}
+	{% set categories = joomla.finder('category', category_options).published(1).language().limit(0).find() %}
+
+	{# Content Finder #}
+	{% if filter.articles %}
+		{% set article_options = filter.articles ? {id: [filter.articles|replace(' ', '')|split(',')]} : {} %}
+		{% set article_finder = joomla.finder('content', article_options).published(1).language() %}
+	{% else %}
+		{% set article_finder = joomla.finder('content').category(categories).published(1).language() %}
+	{% endif %}
+
+	{% set featured = filter.featured|default('include') %}
+	{% if featured == 'exclude' %}
+		{% do article_finder.featured(false) %}
+	{% elseif featured == 'only' %}
+		{% do article_finder.featured(true) %}
+	{% endif %}
+
+	{% set articles = article_finder.order(sort.orderby, sort.ordering).limit(limit.total).start(limit.start).find() %}
+
+    <div class="g-accordion g-joomla-articles{% if particle.css.class %} {{ particle.css.class }}{% endif %}" {% if particle.extra %}{{ attr_extra|raw }}{% endif %}>
+        {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+        <ul class="accordion" id="{{ id }}">
+            {% for article in articles %}
+                <li id="accordion-id{{ loop.index }}">
+					<div class="accordion-article-title"><a href="{{ article.route }}">{% if display.title.enabled %}{{ display.title.limit ? article.title|truncate_text(display.title.limit) : article.title }}</a>{% endif %}
+						<div class="toggle"><i class="fa fa-plus"></i></div>
+					</div>
+					<div class="accordion-article-content">
+					{% if display.date.enabled or display.author.enabled or display.category.enabled or display.hits.enabled %}
+						<div class="accordion-post-meta">
+							{% if display.date.enabled %}
+								<span class="g-array-article-date">
+									{% if display.date.enabled == 'published' %}
+										<i class="fa fa-clock-o" aria-hidden="true"></i>{{ article.publish_up|date(display.date.format) }}
+									{% elseif display.date.enabled == 'modified' %}
+										<i class="fa fa-clock-o" aria-hidden="true"></i>{{ article.modified|date(display.date.format) }}
+									{% else %}
+										<i class="fa fa-clock-o" aria-hidden="true"></i>{{ article.created|date(display.date.format) }}
+									{% endif %}
+								</span>
+							{% endif %}
+
+							{% if display.author.enabled %}
+                                        <span class="accordion-article-author">
+                                            <i class="fa fa-user" aria-hidden="true"></i>{{ article.author.name }}
+                                        </span>
+							{% endif %}
+
+							{% if display.category.enabled %}
+								{% set category_link = display.category.enabled == 'link' %}
+								<span class="accordion-article-category">
+									{% set cat = article.categories|last %}
+									{% if category_link %}
+										<a href="{{ cat.route }}">
+											<i class="fa fa-folder-open" aria-hidden="true"></i>{{ cat.title }}
+										</a>
+									{% else %}
+										<i class="fa fa-folder-open" aria-hidden="true"></i>{{ cat.title }}
+									{% endif %}
+								</span>
+							{% endif %}
+
+							{% if display.hits.enabled %}
+								<span class="g-array-article-hits">
+									<i class="fa fa-eye" aria-hidden="true"></i>{{ article.hits }}
+								</span>
+							{% endif %}
+
+						</div>
+					{% endif %}
+					 {% if display.image.enabled and article.thumbnail.src or display.image.enabled and article.images.image_intro or article.images.image_fulltext or display.text.type or display.read_more.enabled == 'show' and article.route %}
+						<div class="accordion-article-description">
+                            {% if display.image.enabled and article.thumbnail.src %}
+                                <div class="accordion-article-image">
+                                    <a href="{{ article.route }}">
+                                        <img src="{{ url(article.thumbnail.src) }}" />
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                            {% if display.image.enabled and article.images.image_intro or article.images.image_fulltext %}
+                                {% if article.images.image_intro and display.image.enabled == 'intro' or display.image.enabled == 'show' %}
+                                    <div class="g-array-article-image">
+                                        <a href="{{ article.route }}">
+                                            <img src="{{ url(article.images.image_intro) }}" {{ article.images.image_intro|imagesize|raw }} />
+                                        </a>
+                                    </div>
+                                    {% elseif article.images.image_fulltext and display.image.enabled == 'full' %}
+                                        <div class="g-array-article-image">
+                                            <a href="{{ article.route }}">
+                                                <img src="{{ url(article.images.image_fulltext) }}" {{ article.images.image_fulltext|imagesize|raw }} />
+                                            </a>
+                                        </div>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if display.text.type %}
+                                {% set post_text = display.text.type == 'intro' ? article.introtext : article.text %}
+                                <div class="accordion-article-text">
+                                    {% if display.text.formatting == 'text' %}
+                                        {{ post_text|truncate_text(display.text.limit)|raw }}
+                                    {% else %}
+                                        {{ post_text|truncate_html(display.text.limit)|raw }}
+									{% endif %}
+                                </div>
+                            {% endif %}
+                            
+                            {% if display.read_more.enabled == 'show' and article.route %}
+                                <span class="accordion-article-read-more">
+                                    <a target="{{ display.button.target|default('_self')|e }}" href="{{ article.route|e }}" title="{{ display.read_more.label|e }}" class="button{% if display.read_more.css %} {{ display.read_more.css }}{% endif %}">{{ display.read_more.label|e }}</a>
+                                </span>
+                            {% endif %}
+                        </div>
+					{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block javascript_footer %}
+    <script type="text/javascript">
+        (function($) {
+            function openFirstPanel() {
+                jQuery('#{{ id }}.accordion > li:first-child div').addClass('active').css('opacity', 0).slideDown("slow").animate({ opacity: 1 }, {
+                    queue: false,
+                    duration: 'slow'
+                });
+                jQuery('#{{ id }}.accordion > li:first-child').addClass('active').slideDown("slow").animate({ opacity: 1 }, {
+                    queue: false,
+                    duration: 'slow'
+                });
+                jQuery('#{{ id }}.accordion > li:first-child .toggle i').removeClass('fa-plus');
+                jQuery('#{{ id }}.accordion > li:first-child .toggle i').addClass('fa-minus');
+            }
+
+            var allPanels = jQuery('#{{ id }}.accordion li .accordion-article-content').hide();
+            openFirstPanel();
+
+            jQuery('#{{ id }}.accordion > li').click(function() {
+                $this = jQuery(this);
+                $target = jQuery('.accordion-article-content', this);
+
+                if ($target.hasClass('active')) {
+                    $target.removeClass('active').slideUp("slow").animate({ opacity: 0 }, {
+                        queue: false,
+                        duration: 'slow'
+                    });
+                } else {
+                    allPanels.removeClass('active').slideUp("slow").animate({ opacity: 0 }, {
+                        queue: false,
+                        duration: 'slow'
+                    });
+                    $target.addClass('active').slideDown("slow").animate({ opacity: 1 }, {
+                        queue: false,
+                        duration: 'slow'
+                    });
+                }
+                if ($this.hasClass('active')) {
+                    $this.removeClass('active');
+                    jQuery('.toggle i', this).removeClass('fa-minus');
+                    jQuery('.toggle i', this).addClass('fa-plus');
+                } else {
+                    jQuery('#{{ id }}.accordion li').removeClass('active');
+                    jQuery('#{{ id }} .toggle i').removeClass('fa-minus');
+                    jQuery('#{{ id }} .toggle i').addClass('fa-plus');
+                    $this.addClass('active');
+                    jQuery('.toggle i', this).removeClass('fa-plus');
+                    jQuery('.toggle i', this).addClass('fa-minus');
+
+                }
+                return false;
+            });
+
+        })(jQuery);
+        jQuery( ".accordion-article-thumbnail" ).click(function( event ) {
+            event.stopPropagation();
+        });
+        jQuery( ".accordion-article-read-more" ).click(function( event ) {
+            event.stopPropagation();
+        });
+    </script>
+{% endblock %}

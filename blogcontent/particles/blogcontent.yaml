@@ -1,0 +1,90 @@
+name: Blog Content
+description: Display blog content.
+type: particle
+icon: fa-th-large
+
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable icon menu particles.
+      default: true
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the title text.
+      placeholder: Enter title
+
+    listgriditems:
+      type: collection.list
+      array: true
+      label: Blog List
+      description: Create each item to appear in the content row.
+      value: title
+      ajax: true
+
+      fields:
+        .title:
+          type: input.text
+          label: Title
+          skip: true
+        .headline:
+          type: input.text
+          label: Headline
+          description: Customize the headline.
+          placeholder: Enter headline
+        .tag:
+          type: input.text
+          label: Tag
+          description: Customize the tag
+          placeholder: Enter tag
+        .desc:
+          type: textarea.textarea
+          label: Description
+          description: Customize the description.
+          placeholder: Enter short description
+        .divider:
+          type: select.select
+          label: Divider
+          description: Divider between blog entries.
+          placeholder: 'Select ...'
+          default: bottom
+          options:
+            top: Top
+            bottom: Bottom
+            none: None
+        .link:
+           type: input.text
+           label: Icon Link
+           description: Specify the icon link.
+        .icon1:
+          type: input.icon
+          label: Icon 1
+        .icon1text:
+          type: input.text
+          label: Icon 1 Text
+          description: Customize the icon 1 text.
+          placeholder: Enter icon 1 text
+        .icon2:
+          type: input.icon
+          label: Icon 2
+        .icon2text:
+          type: input.text
+          label: Icon 2 Text
+          description: Customize the icon 2 text.
+          placeholder: Enter icon 2 text
+        .icon3:
+          type: input.icon
+          label: Icon 3
+        .icon3text:
+          type: input.text
+          label: Icon 3 Text
+          description: Customize the icon 3 text.
+          placeholder: Enter icon 3 text

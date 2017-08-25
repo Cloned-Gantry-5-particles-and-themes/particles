@@ -1,0 +1,47 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+    <div class="{{ particle.class|e }}">
+        {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+        {% for item in particle.items %}
+        <div id="g-{{ id }}-{{ loop.index }}" data-g-video-id="g-{{ id }}-{{ loop.index }}"  class="g-video">
+            {% if item.source == 'vimeo' %}
+                <iframe width="100%" height="auto" src="https://player.vimeo.com/video/{{ item.video|replace({'https://vimeo.com/': '', 'https://vimeo.com/ondemand/': ''}) }}?autoplay={% if item.autoplay == 'enabled' %}1{% else %}0{% endif %}&amp;loop={% if item.loop == 'enabled' %}1{% else %}0{% endif %}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            {% endif %}
+
+            {% if item.source == 'youtube' %}
+                <iframe width="100%" height="auto" src="https://www.youtube.com/embed/{{ item.video|replace({'https://www.youtube.com/watch?v=': '', 'http://www.youtube.com/watch?v=' : '', 'https://youtu.be/': '', 'http://youtu.be/': ''}) }}?showinfo=0&amp;autoplay={% if item.autoplay == 'enabled' %}1{% else %}0{% endif %}&amp;controls={% if item.controls == 'enabled' %}1{% else %}0{% endif %}{% if item.loop == 'enabled' %}&amp;loop=1&amp;playlist={{ item.video|replace({'https://www.youtube.com/watch?v=': '', 'http://www.youtube.com/watch?v=' : '', 'https://youtu.be/': '', 'http://youtu.be/': ''}) }}{% endif %}" frameborder="0" allowfullscreen></iframe>
+            {% endif %}
+
+            {% if item.source == 'local' %}
+                <video onclick="this.paused?this.play():this.pause();" {% if item.autoplay == 'enabled' %}autoplay{% endif %} {% if item.loop == 'enabled' %}loop{% endif %} {% if item.controls == "enabled" %}controls{% else %}class="g-video-nocontrols"{% endif %}>
+                    {% for source in item.local %}
+                        <source src="{{ url(source.file)|e }}" type="video/{{ source.file|slice(-4)|replace({'.': ''}) }}">
+                    {% endfor %}
+                </video>
+            {% if item.controls == "disabled" %}
+                <div class="g-videolocal-play {% if item.autoplay == 'enabled' %}pause{% endif %}"></div>
+            {% endif %}
+            {% endif %}
+
+            {% if item.source == 'preset' %}
+                <video onclick="this.paused?this.play():this.pause();" {% if item.autoplay == 'enabled' %}autoplay{% endif %} {% if item.loop == 'enabled' %}loop{% endif %} {% if item.controls == "enabled" %}controls{% else %}class="g-video-nocontrols"{% endif %}>
+                    <source src="{{ url(gantry.theme.presets[gantry.theme.preset].styles.slideshow.video)|default(url(gantry.config.get('styles.slideshow.video'))) }}" type="video/{{ gantry.theme.presets[gantry.theme.preset].styles.slideshow.video|default(gantry.config.get('styles.slideshow.video'))|slice(-4)|replace({'.': ''}) }}">
+                    <source src="{{ url(gantry.theme.presets[gantry.theme.preset].styles.slideshow.video)|default(url(gantry.config.get('styles.slideshow.video')))|replace({'webm': 'mp4'}) }}" type="video/mp4">
+                </video>
+            {% if item.controls == "disabled" %}
+                <div class="g-videolocal-play {% if item.autoplay == 'enabled' %}pause{% endif %}"></div>
+            {% endif %}
+            {% endif %}
+        </div>
+
+        {% if item.caption %}
+            <div class="g-video-caption">{{ item.caption }}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascript_footer %}
+<script src="{{ url('gantry-theme://js/video.init.js') }}"></script>
+{% endblock %}

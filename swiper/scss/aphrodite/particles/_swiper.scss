@@ -1,0 +1,107 @@
+.g-swiper {
+    position: relative;
+    overflow: hidden;
+    .swiper-slide-content {
+        position: relative;
+        margin: 1.5rem;
+        width: 65%;
+        .g-title {
+			@include g-swiper-title;
+        }
+        .g-swiper-desc {
+            opacity: 0.5;
+            margin: 1rem 0;
+            @include breakpoint(mobile-only) {
+                display: none;
+            }
+        }
+        .g-button-arrow {
+            color: $accent-color-2;
+            @include breakpoint(mobile-only) {
+                margin: 1rem 0 8rem 0;
+            }
+        }
+    }
+}
+.swiper-slide-content-list {
+	margin: 0;
+	.g-content {
+		margin: 0;
+		padding: $content-padding + 0.8;
+		.g-blogcontent-title {
+			@extend .g-headline;
+		}
+	}
+}
+.swiper-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.swiper-slide {
+    background-size: cover;
+    background-position: center;
+}
+.gallery-top {
+    height: 100%;
+    width: 100%;
+    .swiper-slide {
+        &:before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    }
+}
+.swiper-container.gallery-thumbs {
+    height: 15%;
+    position: absolute;
+    bottom: 1rem;
+    z-index: 10;
+}
+.gallery-thumbs .swiper-slide {
+    width: 25%;
+    height: 100%;
+    opacity: 0.6;
+    cursor: pointer;
+    border: 1px solid $accent-color-2;
+}
+.gallery-thumbs .swiper-slide-active {
+    opacity: 1;
+    border: none;
+    &:before {
+        background: fadeout($accent-color-2, 75%);
+        bottom: 0;
+        position: absolute;
+        content: '';
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+
+// Triangle
+.g-triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 80px 100px 80px;
+    border-color: transparent transparent $accent-color-2 transparent;
+    margin: auto;
+}
+.g-triangle-content {
+    color: darken($accent-color-2, 25%);
+    line-height: 150px;
+    margin-left: -30px;
+    a {
+        color: darken($accent-color-2, 25%);
+        &:hover {
+            color: darken($accent-color-2, 35%);
+        }
+    }
+}

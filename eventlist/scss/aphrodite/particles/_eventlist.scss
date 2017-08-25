@@ -1,0 +1,88 @@
+.g-eventlist-item {
+    @include display(flex);
+    @include flex-grow(1);
+    @include justify-content(center);
+    flex-wrap: wrap;
+    flex-direction: row;
+    @include breakpoint(tablet-range) {
+        flex-direction: column;
+    }
+    @include breakpoint(small-mobile-range) {
+        flex-direction: column;
+    }
+    border-bottom: 2px solid transparentize($black, 90%);
+    padding-top: $content-padding;
+    padding-bottom: $content-padding;
+    &:last-child {
+        border: 0 none;
+    }
+    .g-eventlist-date {
+        text-align: center;
+        line-height: $core-line-height - 0.4;
+        padding-right: $content-margin + $content-padding;
+        padding-left: $content-margin;
+        .dir-rtl & {
+            padding-left: $content-margin + $content-padding;
+            padding-right: $content-margin;
+        }
+        padding-top: $content-margin;
+        padding-bottom: $content-margin;
+        @include breakpoint(tablet-range) {
+            padding: $content-margin 0;
+        }
+        @include breakpoint(small-mobile-range) {
+            padding: $content-margin 0;
+        }
+        .g-eventlist-date-line1 {
+            font-weight: $font-weight-medium;
+            font-size: $core-font-size + 0.1;
+            opacity: 0.5;
+        }
+        .g-eventlist-date-line2 {
+            font-size: $core-font-size + 1.1;
+        }
+    }
+    .g-eventlist-location {
+        @include flex-grow(1);
+        @include display(flex);
+        @include breakpoint(tablet-range) {
+            @include justify-content(center);
+        }
+        @include breakpoint(small-mobile-range) {
+            @include justify-content(center);
+        }
+        line-height: $core-line-height - 0.3;
+        padding-top: $content-margin;
+        padding-bottom: $content-margin;
+
+        .g-eventlist-location-line1 {
+            font-size: $core-font-size + 0.4;
+            font-weight: $font-weight-medium;
+        }
+
+        .g-eventlist-location-line2 {
+            font-size: $core-font-size + 0.3;
+            opacity: 0.5;
+        }
+        .g-eventlist-location-icon {
+            font-size: $core-font-size + 1.4;
+            padding-right: $content-margin + 0.3;
+            .dir-rtl & {
+                padding: 0;
+                padding-left: $content-margin + 0.3;
+            }
+            opacity: 0.5;
+        }
+
+    }
+    .g-eventlist-buttons {
+        padding-top: $content-margin;
+        padding-bottom: $content-margin;
+        @include breakpoint(tablet-range) {
+            text-align: center;
+        }
+        @include breakpoint(small-mobile-range) {
+            text-align: center;
+        }
+    }
+}

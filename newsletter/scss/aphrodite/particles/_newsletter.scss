@@ -1,0 +1,19 @@
+.g-newsletter {
+	.g-newsletter-headtext {
+		margin-bottom: 1.5rem;
+	}
+	.g-newsletter-inputbox {
+		border-radius: 1.5rem;
+		border: 2px solid $rule-color;
+		display: inline-block;
+		padding: ($content-margin / 4) ($content-padding / 2);
+		width: 70%;
+		margin-right: 0.25rem;
+		vertical-align: top;
+	}
+	.g-newsletter-button {
+		width: 25%;
+		padding-left: inherit;
+		padding-right: inherit;
+	}
+}

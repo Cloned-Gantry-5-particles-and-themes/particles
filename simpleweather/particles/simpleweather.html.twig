@@ -1,0 +1,10 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+    <div id="g-{{ id }}" data-simpleweather-id="g-{{ id }}" data-simpleweather-showlocation="{{ particle.show_location }}" class="g-simpleweather {{ particle.class }}" data-simpleweather-location="{{ particle.location }}" data-simpleweather-title="{{ particle.title }}" data-simpleweather-units="{{ particle.units }}" data-simpleweather-params="{% if particle.custom_data %}{% set weather_params = particle.custom_data|split(' ') %}{% for item in weather_params %}{{ item }}{% if not loop.last %},{% endif %}{% endfor %}{% endif %}"><' + '/div>
+{% endblock %}
+
+{% block javascript_footer %}
+<script src="{{ url('gantry-theme://js/jquery.simpleWeather.js') }}"></script>
+<script src="{{ url('gantry-theme://js/jquery.simpleWeather.init.js') }}"></script>
+{% endblock %}

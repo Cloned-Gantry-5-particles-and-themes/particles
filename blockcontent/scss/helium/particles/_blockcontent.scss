@@ -1,0 +1,72 @@
+.g-blockcontent-header {
+    @include breakpoint(mobile-only) {
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+}
+.g-blockcontent {
+    font-family: get-font-family($font-family-promo);
+}
+
+.g-blockcontent-subcontent-title {
+    margin: $content-margin 0;
+}
+
+.g-blockcontent-subcontent-title-icon {
+    display: block;
+    margin-bottom: $content-margin;
+}
+
+.g-blockcontent-subcontent-title-text {
+    font-family: get-font-family($font-family-title);
+    font-weight: $font-weight-regular;
+    font-size: $core-font-size + 0.5;
+    margin-top: 0;
+    margin-bottom: $content-padding - 0.5;
+    color: $base-text-color;
+}
+
+.g-blockcontent-subcontent {
+    margin: -($content-margin + $content-padding);
+
+    .g-blockcontent-spacing & {
+        margin: -$content-margin 0;
+    }
+}
+
+.g-blockcontent-subcontent-subtitle {
+    font-family: get-font-family($font-family-default);
+    font-weight: $font-weight-light;
+    font-size: $core-font-size - 0.3;
+    color: $black;
+    vertical-align: super;
+}
+
+.g-blockcontent-subcontent-desc {
+    font-family: get-font-family($font-family-default);
+    font-weight: $font-weight-regular;
+    font-size: $core-font-size + 0.1;
+    position: relative;
+    margin: $content-margin;
+    line-height: $core-line-height - 0.1;
+
+    i {
+        margin-top: $content-margin;
+    }
+}
+
+.g-blockcontent-subcontent-img {
+    border-radius: $border-radius;
+}
+
+.g-blockcontent-description {
+    font-family: get-font-family($font-family-default);
+    font-size: $core-font-size;
+    font-weight: $font-weight-light;
+}
+
+.g-blockcontent-buttons {
+    margin-top: $content-padding;
+}

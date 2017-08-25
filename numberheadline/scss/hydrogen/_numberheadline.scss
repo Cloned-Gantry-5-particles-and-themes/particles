@@ -1,0 +1,107 @@
+@import "particlemixins";
+
+// Numberheadline and RokSprocket Mosaic Inheritance
+%g-numberheadline-number-item {
+    position: absolute;
+    left: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+    width: 35px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: $border-radius;
+    color: $white;
+    background: $accent-color-1;
+}
+%g-numberheadline-number-style-2 {
+	color: darken($accent-color-2, 35%);
+	background: $accent-color-2;
+}
+%g-numberheadline-number-style-3 {
+	color: $white;
+	background: $accent-color-3;
+}
+%g-numberheadline-link-style-2 {
+    color: $accent-color-2;
+    &:hover {
+        color: inherit;
+    }
+}
+%g-numberheadline-link-style-3 {
+    color: $accent-color-3;
+    &:hover {
+        color: inherit;
+    }
+}
+%g-numberheadline-tags {
+    position: relative;
+	margin: 0 -1.2rem -1.2rem;
+	padding: 0 1.2rem;
+    &:before {
+        background: $rule-color;
+        content: '';
+        height: 1px;
+        position: absolute;
+        left: -($content-padding);
+        right: -($content-padding);
+    }
+	@include breakpoint(tablet-range) {
+		margin: 0 -0.5rem -0.5rem;
+		padding: 0 0.5rem;
+	}
+    li {
+        padding-top: 1rem;
+    }
+}
+
+// Numberheadline
+.g-numberheadline {
+	.g-numberheadline-block {
+		padding: 1.2rem;
+		@include breakpoint(tablet-range) {
+			padding: 0.5rem;
+		}
+	}
+	.g-numberheadline-item {
+		position: relative;
+        padding-left: 50px;
+	}
+    .g-numberheadline-number {
+		@extend %g-numberheadline-number-item;
+    }
+	.g-headline {
+		@include g-numberheadline-headline;
+	}
+    .g-tag {
+        margin: 0.5rem 0;
+    }
+    .g-numberheadline-desc {
+        margin: 1.25rem 0;
+    }
+    .g-horizontalmenu {
+		@extend %g-numberheadline-tags;
+    }  
+    .g-numberheadline-style-2 {
+        a {
+			@extend %g-numberheadline-link-style-2;
+        }
+        .g-numberheadline-number {
+			@extend %g-numberheadline-number-style-2;
+        }    
+    }
+    .g-numberheadline-style-3 {
+        a {
+			@extend %g-numberheadline-link-style-3;
+        }
+        .g-numberheadline-number {
+			@extend %g-numberheadline-number-style-3;
+        }
+    }
+	.g-numberheadline-link {
+		margin-top: 1.5rem;
+		.title-center & {
+			text-align: center;
+		}
+	}
+}

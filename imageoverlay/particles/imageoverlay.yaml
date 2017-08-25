@@ -1,0 +1,46 @@
+name: Image Overlay
+description: Display image with overlay.
+type: particle
+icon: fa-adjust
+
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable icon menu particles.
+      default: true
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the title text.
+      placeholder: Enter title
+
+    image:
+      type: input.imagepicker
+      label: Image
+      description: Select desired image.
+
+    imagetitle:
+      type: input.text
+      label: Image Title
+      description: Customize the image title text.
+      placeholder: Enter the image title
+
+    imagetag:
+      type: input.text
+      label: Image Tag
+      description: Customize the image tag.
+      placeholder: Enter the image tag
+
+    desc:
+      type: textarea.textarea
+      label: Description
+      description: Customize the description.
+      placeholder: Enter short description

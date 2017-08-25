@@ -1,0 +1,100 @@
+name: Video Grid
+description: Display video grid.
+type: particle
+icon: fa-video-camera
+
+form:
+  overrideable: false
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable particle.
+      default: true
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the title text.
+      placeholder: Enter title
+
+    desc:
+      type: textarea.textarea
+      label: Description
+      description: Customize the description.
+      placeholder: Enter short description
+
+    cols:
+      type: select.select
+      label: Grid Column
+      description: Select the grid column amount
+      placeholder: 'Select...'
+      default: g-videogrid-2cols
+      options:
+        g-videogrid-2cols: 2 Columns
+        g-videogrid-3cols: 3 Columns
+        g-videogrid-4cols: 4 Columns
+        g-videogrid-5cols: 5 Columns
+
+    layout:
+      type: select.select
+      label: Layout
+      description: Select preferred layout
+      placeholder: 'Select...'
+      default: g-videogrid-standard
+      options:
+        g-videogrid-standard: Standard
+        g-videogrid-captions: Extended
+
+    album:
+      type: input.text
+      label: Album Name
+      description: Customize the album name.
+      placeholder: Enter album name
+
+    videogriditems:
+      type: collection.list
+      array: true
+      label: Videos
+      description: Create each item to appear in the content row.
+      value: title
+      ajax: true
+
+      fields:
+        .title:
+          type: input.text
+          label: Title
+          skip: true
+        .thumbnail:
+          type: input.imagepicker
+          label: Video Thumbnail
+          description: Select desired promo video.
+        .icon:
+          type: input.icon
+          label: Icon
+          description: Icon used only in the Visible Captions layout.
+          default: 'fa fa-search'
+        .video:
+          type: input.videopicker
+          label: Promo Video
+          description: Select desired promo video.
+        .videotitle:
+          type: input.text
+          label: Video Title
+          description: Customize the video title.
+          placeholder: Enter video title
+        .videoduration:
+          type: input.text
+          label: Video Duration
+          description: Customize the video duration.
+          placeholder: Enter video duration
+        .videodescription:
+          type: textarea.textarea
+          label: Video Description
+          description: Customize the video description.
+          placeholder: Enter video description

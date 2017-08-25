@@ -1,0 +1,37 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+    {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+	<div class="g-imageblock {{ particle.class|e }}">
+		<div class="g-grid">
+			<div class="g-listgrid {{ particle.cols|default('g-listgrid-4cols')|e }}">
+			{% for listgriditem in particle.listgriditems %}
+			<div class="g-block g-listgrid-item {{ listgriditem.variation }}{{ listgriditem.class }}">
+				<div class="g-content">
+					<div class="g-imageblock">
+						<div class="g-imageblock-content">
+							{% if listgriditem.link %}<a href="{{ listgriditem.link|e }}">{% endif %}
+								<span class="g-imageblock-img"><img alt="image" src="{{ url(listgriditem.image)|e }}"/></span>
+								{% if listgriditem.icon %}<span class="g-imageblock-icon"><span class="{{ listgriditem.icon }}"></span></span>{% endif %}
+								{% if listgriditem.headline %}
+								<span class="g-imageblock-text-top">
+									<span class="g-imageblock-title">{{ listgriditem.headline|raw }}</span>
+								</span>
+								{% endif %}
+								<span class="g-imageblock-text-bottom">
+									{% if listgriditem.titlebottom %}<span class="g-imageblock-title">{{ listgriditem.titlebottom }}</span>{% endif %}
+									{% if listgriditem.tag %}<span class="g-imageblock-desc">{{ listgriditem.tag }}</span>{% endif %}
+								</span>
+							{% if listgriditem.link %}</a>{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

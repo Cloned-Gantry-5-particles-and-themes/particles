@@ -1,0 +1,33 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+    <div class="g-simplemenu-particle {% if particle.cols > 0 %}with-columns{% endif %}">
+        <h6>{{ particle.title }}</h6>
+        {% if particle.cols > 0 %}
+            {% for row in particle.items|batch(particle.cols) %}
+                <ul class="g-simplemenu {{ particle.class|e }} g-simplemenu-{{ particle.cols }}cols">
+
+                    {% for item in row %}
+                    <li>
+                        {% if item.icon %}
+                            <i class="{{ item.icon }}"></i>
+                        {% endif %}
+                        <a target="{{ item.target|default('_blank') }}" href="{{ item.link|e }}" title="{{ item.text }}">{{ item.text|raw }}</a>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            {% endfor %}
+        {% else %}
+            <ul class="g-simplemenu {{ particle.class|e }} g-simplemenu-{{ particle.cols }}cols">
+
+                {% for item in particle.items %}
+                <li>
+                    <a target="{{ item.target|default('_blank') }}" href="{{ item.link|e }}" title="{{ item.text }}">{{ item.text }}</a>
+                </li>
+                {% endfor %}
+
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

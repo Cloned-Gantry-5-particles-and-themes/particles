@@ -1,0 +1,54 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+	{% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+	<div class="g-blogcontent {{ particle.class|e }}">
+		{% for listgriditem in particle.listgriditems %}
+			{% if listgriditem.divider == "top" %}
+			<hr />
+			{% endif %}
+
+			{% if listgriditem.tag %}
+			<div class="g-tag">{{ listgriditem.tag|e }}</div>
+			{% endif %}	
+			<h4 class="g-blogcontent-title">{{ listgriditem.headline|e }}</h4>
+			<p class="g-blogcontent-desc">{{ listgriditem.desc|raw }}</p>
+			{% if listgriditem.icon1 or listgriditem.icon2 or listgriditem.icon3  %}
+			<ul class="g-horizontalmenu">
+				{% if listgriditem.icon1 %}
+				<li>
+					<a href="{{ listgriditem.link|e }}">
+	            		<span class="{{ listgriditem.icon1 }}"></span>
+						<span>{{ listgriditem.icon1text|raw }}</span>
+					</a>
+				</li>
+				{% endif %}
+				{% if listgriditem.icon2 %}
+				<li>
+					<a href="{{ listgriditem.link|e }}">
+	            		<span class="{{ listgriditem.icon2 }}"></span>
+						<span>{{ listgriditem.icon2text|raw }}</span>
+					</a>
+				</li>
+				{% endif %}
+				{% if listgriditem.icon3 %}
+				<li>
+					<a href="{{ listgriditem.link|e }}">
+	            		<span class="{{ listgriditem.icon3 }}"></span>
+						<span>{{ listgriditem.icon3text|raw }}</span>
+					</a>
+				</li>
+				{% endif %}
+				
+			</ul>
+			{% endif %}
+			
+			{% if listgriditem.divider == "bottom" %}
+			<hr />
+			{% endif %}
+		{% endfor %}
+	</div>
+
+{% endblock %}

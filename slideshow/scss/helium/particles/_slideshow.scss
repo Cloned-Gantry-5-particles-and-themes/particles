@@ -1,0 +1,131 @@
+#g-slideshow {
+    background: $slideshow-background;
+    color: $slideshow-text-color;   
+    // Container
+    .g-container {
+    	width: 100%;
+    }
+    // Swiper
+	.g-swiper-slideshow-container {
+	    height: 80vh;
+	}    
+	.g-slideshow-overlay {
+	    background: transparent;
+	    bottom: 0;
+	    position: absolute;
+	    content: '';
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}	
+	.g-slideshow-overlay-right {
+		position: relative;
+		&:before {
+		    //background: fadeout($accent-color-1, 25%);
+		    @include background(linear-gradient(fadeout($accent-color-1, 25%), fadeout(saturate($accent-color-1, 35%), 25%)));
+		    bottom: 0;
+		    position: absolute;
+		    content: '';
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+	}
+	.no-overlay {
+		.g-slideshow-overlay-right {
+			&:before {
+				background: transparent;
+			}
+		}
+	}
+	.g-slideshow-title {
+	    position: relative;
+	    display: block;
+	    font-family: get-font-family($font-family-promo);
+	    font-size: 8rem;
+	    padding-top: 8vh;
+	    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+	    text-align: center;
+	    z-index: 100;
+	    @include breakpoint(mobile-only) {
+	        font-size: 5rem;
+	    }    
+	    @include breakpoint(small-mobile-range) {
+	        font-size: 3.5rem;
+	        padding-top: 25%;
+	    }    
+	}
+	.g-swiper-button-next, .g-swiper-button-prev {
+	    background: $accent-color-3;
+	    color: $white;
+	    font-family: "helvetica";
+	    font-size: 4rem;
+	    padding: 0 1rem;
+	    position: absolute;
+	    top: 15%;
+	    z-index: 10;
+	    cursor: pointer;
+	    display: block;
+	    height: 65px;
+	    line-height: 65px;
+	    @include transition(all 0.2s);
+	    &.swiper-button-disabled, &.swiper-button-disabled:hover, &.swiper-button-disabled:focus {
+	        background: lighten($black, 50%);
+	        cursor: not-allowed;
+	        opacity: 0.5;
+	        .g-swiper-button-text {
+	            font-size: 0;
+	        }
+	    }
+	    &:hover {
+	        background: $black;
+	        .g-swiper-button-text {
+	            font-size: 1rem;
+	        }
+	    }
+	    @include breakpoint(small-mobile-range) {
+	        font-size: 2rem;
+	        height: 35px;
+	        line-height: 35px;
+	        top: 40%;
+	    }     
+	}
+	.g-swiper-slideshow-desc {
+	    margin: 1rem auto;
+	    position: relative;
+	    text-align: center;
+	    width: 80%;
+	    z-index: 100;
+	}
+	.g-swiper-slideshow-button {
+	    position: relative;
+	    text-align: center;
+	    z-index: 100;
+	}
+	.g-swiper-button-next {
+	    right: 0;
+	}
+	.g-swiper-button-prev {
+	    left: 0;
+	}
+	.g-swiper-button-text {
+	    font-size: 0;
+	    text-transform: uppercase;
+	    font-family: get-font-family($font-family-default);
+	    line-height: 65px;
+	    vertical-align: top;
+	    @include transition(all 0.2s);
+	    @include breakpoint(small-mobile-range) {
+	        line-height: 35px;
+	    }    
+	}	
+}
+
+@media print {
+	#g-slideshow {
+		background: #fff !important;
+		color: #000 !important;
+	}
+}

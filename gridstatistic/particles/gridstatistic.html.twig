@@ -1,0 +1,37 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+    <div class="{{ particle.class|e }}">
+
+        {% if particle.title %}<h3 class="g-title">{{ particle.title|raw }}</h3>{% endif %}
+
+        <div class="g-gridstatistic">
+            {% if particle.desc %}<div class="g-gridstatistic-desc">{{ particle.desc|raw }}</div>{% endif %}
+            {% if particle.readmore %}<a href="{{ particle.readmorelink|e }}" class="button {{ particle.readmoreclass|e }}">{{ particle.readmore|raw }}</a>{% endif %}
+
+            <div class="g-gridstatistic-wrapper {{ particle.cols|e }}">
+
+                {% for gridstatisticitem in particle.gridstatisticitems %}
+                    <div class="g-gridstatistic-item">
+                        <div class="g-gridstatistic-item-wrapper">
+                            <div class="g-gridstatistic-item-text1 odometer" data-odometer-value="{{ gridstatisticitem.text1|e }}"></div>
+                            <div class="g-gridstatistic-item-icon">{% if gridstatisticitem.icon %}<span class="g-gridstatistic-item-separator">x</span> <i class="{{ gridstatisticitem.icon }} }}"></i>{% endif %}</div>
+                            <div class="g-gridstatistic-item-text2"><span>{{ gridstatisticitem.text2|e }}</span></div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            {% if particle.footerdesc %}<div class="g-gridstatistic-footerdesc">{{ particle.footerdesc|raw }}</div>{% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript_footer %}
+    <script src="{{ url('gantry-theme://js/odometer.js') }}"></script>
+    <script src="{{ url('gantry-theme://js/odometerc.init.js') }}"></script>
+{% endblock %}

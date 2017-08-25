@@ -1,0 +1,31 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+<div class="{{ particle.class|e }}">
+  	{% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+	<div class="g-popupmodule">
+		<div class="g-popupmodule-button">
+			<div class="g-popupmodule-button-wrapper">
+				{% set user = joomla.factory('user') %}
+				{% if user.guest %}
+					<a data-rokbox href="#" data-rokbox-element="#g-popupmodule-{{ id }}" title="{{ particle.guestbuttontext|e }}" class="button {{ particle.buttonclass|e }}">
+						{% if particle.guestbuttonicon %}<span class="{{ particle.guestbuttonicon|e }} g-popupmodule-button-icon"></span>{% endif %}
+						{{ particle.guestbuttontext|e }}
+					</a>
+				{% else %}
+					<a data-rokbox href="#" data-rokbox-element="#g-popupmodule-{{ id }}" title="{{ particle.userbuttontext|e }}" class="button {{ particle.buttonclass|e }}">
+						{% if particle.userbuttonicon %}<span class="{{ particle.userbuttonicon|e }} g-popupmodule-button-icon"></span>{% endif %}
+						{{ particle.userbuttontext|e }}
+					</a>
+				{% endif %}
+			</div>
+
+			<div id="g-popupmodule-{{ id }}" class="g-popupmodule-module-wrapper">
+				{{ gantry.platform.displayModule(particle.module_id, {'style': particle.chrome|default('gantry'), 'position': 'particle'})|raw }}
+			</div>
+		</div>
+	</div>
+
+</div>
+{% endblock %}

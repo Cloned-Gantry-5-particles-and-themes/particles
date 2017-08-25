@@ -1,0 +1,47 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+<div class="{{ particle.class|e }}">
+    {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+    {% for item in particle.items %}
+    <div class="g-eventlist-item">
+        <div class="g-eventlist-date">
+            <div class="g-eventlist-date-line1">
+                {{ item.date1 }}
+            </div>
+            <div class="g-eventlist-date-line2">
+                {{ item.date2 }}
+            </div>
+        </div>
+        <div class="g-eventlist-location">
+            <div class="g-eventlist-location-icon">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </div>
+            <div class="g-eventlist-location-content">
+                <div class="g-eventlist-location-line1">
+                    <a target="{{ item.buttontarget|default('_self')|e }}"  href="https://www.google.com/maps/search/{{ item.location1 }}">
+                        {{ item.location1 }}
+                    </a>
+                </div>
+                <div class="g-eventlist-location-line2">
+                    <a target="{{ item.buttontarget|default('_self')|e }}"  href="https://www.google.com/maps/search/{{ item.location2 }}">
+                        {{ item.location2 }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="g-eventlist-buttons">
+            <div class="g-eventlist-location-button">
+                <a target="{{ item.buttontarget|default('_self')|e }}" href="{{ item.buttonlink|e }}" title="{{ item.buttontext|e }}" class="button {{ item.buttonclass|e }}">{{ item.buttontext|e }}</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
+
+{% block javascript_footer %}
+
+{% endblock %}

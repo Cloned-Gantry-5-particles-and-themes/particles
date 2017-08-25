@@ -1,0 +1,199 @@
+.g-videogrid {
+    *, *:before, *:after {
+        box-sizing: border-box !important;
+    }
+    .g-videogrid-wrapper {
+        @include display(flex);
+        @include flex-flow(row wrap);
+        @include flex-wrap(wrap);
+        &.g-videogrid-captions {
+            margin: -($content-margin + 0.4 + $content-padding);
+        }
+    }
+    .g-videogrid-item {
+        @include flex(0 0 auto);
+        width: 100%;
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+
+        .g-videogrid-title {
+            @include responsive-font(1.3vw, $core-font-size + 0.1, false, $core-font-size + 0.4);
+            padding: $content-margin + 0.2 0;
+            font-weight: $font-weight-medium;
+            line-height: $core-line-height;
+            @media only all and (max-width: 74.938rem) and (min-width: $breakpoints-tablet-container) {
+                font-size: $core-font-size + 0.4;
+            }
+            @include breakpoint(mobile-only) {
+                font-size: $core-font-size + 0.4;
+            }
+            @include breakpoint(tablet-range) {
+                font-size: $core-font-size + 0.4;
+            }
+
+            .g-videogrid-duration {
+                @include responsive-font(1.3vw, $core-font-size + 0.1, false, $core-font-size + 0.4);
+                @media only all and (max-width: 74.938rem) and (min-width: $breakpoints-tablet-container) {
+                    font-size: $core-font-size + 0.2;
+                }
+                @include breakpoint(mobile-only) {
+                    font-size: $core-font-size + 0.2;
+                }
+                @include breakpoint(tablet-range) {
+                    font-size: $core-font-size + 0.2;
+                }
+                font-weight: $font-weight-regular;
+                line-height: $core-line-height;
+                float: right;
+                .dir-rtl & {
+                    float: left;
+                }
+            }
+        }
+
+        .g-videogrid-description {
+            font-size: $core-font-size + 0.3;
+            line-height: $core-line-height - 0.2;
+        }
+
+        img {
+            @include transition(all 0.35s);
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+        }
+        .g-videogrid-caption {
+            @include display(flex);
+            @include justify-content(center);
+            font-size: $core-font-size + 0.1;
+            text-transform: uppercase;
+            color: $white;
+            font-style: normal;
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            bottom: 15%;
+            right: 0;
+        }
+        .indicator {
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            color: $white;
+            font-style: normal;
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            div {
+                font-size: $core-font-size + 0.5;
+                flex: none;
+                -webkit-flex: none;
+                .dir-rtl & {
+                    margin-right: 0;
+                }
+                opacity: 0;
+                @include transform(scale(0));
+                @include transition(all 0.35s);
+
+                .fa {
+                    font-size: $core-font-size + 2;
+                }
+            }
+        }
+        &:hover {
+            z-index: 10;
+            .g-videogrid-link:before {
+                opacity: 1;
+                @include transform(scale(1));
+            }
+            .indicator div {
+                opacity: 1;
+                @include transform(scale(1));
+            }
+        }
+    }
+    .g-videogrid-desc {
+        margin: 1.5rem 0;
+    }
+    .g-videogrid-link {
+        @include display(flex);
+        position: relative;
+        width: 100%;
+        height: 100%;
+        @include transition(all 0.35s);
+        &:before {
+            color: $white;
+            @include background-image(linear-gradient(top, transparentize($accent-color-1, 90%) 0%, $accent-color-1 100%));
+            content: "";
+            position: absolute;
+            z-index: 1;
+            opacity: 0.5;
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            text-align: center;
+            @include transform(scale(0));
+            @include transition(all 0.35s);
+        }
+    }
+
+    .g-videogrid-captions {
+        .g-videogrid-item {
+            padding: $content-margin + 0.4;
+        }
+    }
+
+    .g-videogrid-2cols {
+        .g-videogrid-item {
+            width: 50%;
+
+            @include breakpoint(mobile-only) {
+                width: 100%;
+            }
+        }
+    }
+    .g-videogrid-3cols {
+        .g-videogrid-item {
+            width: 33.33333%;
+
+            @include breakpoint(tablet-range) {
+                width: 50%;
+            }
+
+            @include breakpoint(mobile-only) {
+                width: 100%;
+            }
+        }
+    }
+    .g-videogrid-4cols {
+        .g-videogrid-item {
+            width: 25%;
+
+            @media only all and (max-width: 74.938rem) and (min-width: $breakpoints-tablet-container) {
+                width: 50%;
+            }
+
+            @include breakpoint(tablet-range) {
+                width: 50%;
+            }
+            @include breakpoint(mobile-only) {
+                width: 100%;
+            }
+        }
+    }
+    .g-videogrid-5cols {
+        .g-videogrid-item {
+            width: 20%;
+            @include breakpoint(tablet-range) {
+                width: 33.33333%;
+            }
+            @include breakpoint(mobile-only) {
+                width: 50%;
+            }
+        }
+    }
+}

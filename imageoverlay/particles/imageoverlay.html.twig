@@ -1,0 +1,22 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+	{% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+	
+	<div class="g-imageoverlay {{ particle.class|e }}">
+		<div class="g-imageoverlay-content">
+			<span class="g-imageoverlay-img"><img alt="{{ particle.imagetag|e }}" src="{{ url(particle.image)|e }}"></span>	
+			{% if particle.imagetag %}
+			<span class="g-imageoverlay-tag">{{ particle.imagetag|e }}</span>	
+			{% endif %}
+			{% if particle.imagetitle %}
+			<span class="g-imageoverlay-title">{{ particle.imagetitle|e }}</span>
+			{% endif %}
+		</div>
+		{% if particle.desc %}
+		<div class="g-imageoverlay-desc">{{ particle.desc|e }}</div>
+		{% endif %}
+	</div>
+
+{% endblock %}

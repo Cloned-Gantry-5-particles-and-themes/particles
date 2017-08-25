@@ -1,0 +1,36 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+    {% if particle.title %}
+        <h2 class="g-title">{{ particle.title|raw }}</h2>
+    {% endif %}
+    <div class="g-miniplayer {{ particle.cols|e }}" data-miniplayer-id="{{ id }}" data-miniplayer-clientid="{{ particle.soundcloudclientid }}">
+        {% for item in particle.items %}
+            <div class="g-miniplayer-item-wrapper">
+                <div class="g-miniplayer-item closed" data-miniplayer-{% if item.source == 'soundcloud' %}soundcloud{% else %}audio{% endif %}-track="{% if item.source == 'soundcloud' %}{{ item.soundcloudurl }}{% endif %}{% if item.source == 'external' %}{{ item.externalurl }}{% endif %}{% if item.source == 'local' %}{{ url(item.localurl) }}{% endif %}" {% if item.source == "local" or item.source == "external" %}data-miniplayer-audio-cover="{{ url(item.cover)|e }}{% endif %}" {% if item.source == "local" or item.source == "external" %}data-miniplayer-audio-artist="{{ item.artist }}" data-miniplayer-audio-title="{{ item.tracktitle }}"{% endif %} >
+                    <img src="{{ url('gantry-media://player/vinyl.png') }}" alt="SoundCloud Album Record" class="g-miniplayer-record"/>
+                    <div class="g-miniplayer-cover">
+                        <img src="" alt="" class="g-miniplayer-artwork"/>
+                        <div class="g-miniplayer-trackinfos">
+                            <p class="g-miniplayer-now">{{ particle.nowplaying }}</p>
+                            {% if item.coverartist == 'enabled' %}<p class="g-miniplayer-band"></p>{% endif %}
+                            {% if item.covertrack == 'enabled' %}<p class="g-miniplayer-track"></p>{% endif %}
+                            <a href="#" class="fa fa-play g-miniplayer-play"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="g-miniplayer-trackinfos2">
+                    {% if item.artist %}{{ item.artist }}{% endif %}{% if item.artist and item.tracktitle %} - {% endif %}{% if item.tracktitle %}{{ item.tracktitle }}{% endif %}
+                    <div class="g-miniplayer-releasedate">
+                        {{ item.releasedate }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascript_footer %}
+    <script src='http://connect.soundcloud.com/sdk.js'></script>
+    <script src="{{ url('gantry-theme://js/jquery.miniplayer.init.js') }}"></script>
+{% endblock %}

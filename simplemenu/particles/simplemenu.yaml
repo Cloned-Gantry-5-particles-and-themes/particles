@@ -1,0 +1,73 @@
+name: Simple Menu
+description: Display simple menu.
+type: particle
+icon: fa-forward
+
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable particle.
+      default: true
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the title text.
+      placeholder: Enter title
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    cols:
+      type: select.select
+      label: Items in column
+      description: Split menu items into columns
+      placeholder: 'Select...'
+      default: 0
+      options:
+        0: Unlimited
+        2: 2 Items
+        3: 3 Items
+        4: 4 Items
+        5: 5 Items
+
+    items:
+      type: collection.list
+      array: true
+      label: Menu Items
+      description: Create each menu item to display.
+      value: name
+      ajax: true
+
+      fields:
+        .icon:
+          type: input.icon
+          label: Icon
+          description: Select the icon.
+
+        .name:
+          type: input.text
+          label: Name
+          skip: true
+
+        .text:
+          type: input.text
+          label: Text
+
+        .link:
+          type: input.text
+          label: Link
+
+        .target:
+          type: select.select
+          label: Target
+          description: Target browser window when item is clicked.
+          placeholder: 'Select...'
+          default: _blank
+          options:
+              _self: Self
+              _blank: New Window

@@ -1,0 +1,74 @@
+name: Image Block
+description: Display image block content.
+type: particle
+icon: fa-file-photo-o
+
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable icon menu particles.
+      default: true
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the title text.
+      placeholder: Enter title
+
+    cols:
+      type: select.select
+      label: Grid Column
+      description: Select the grid column amount for the list items
+      placeholder: 'Select...'
+      default: g-listgrid-3cols
+      options:
+        g-listgrid-2cols: 2 Columns
+        g-listgrid-3cols: 3 Columns
+        g-listgrid-4cols: 4 Columns
+        g-listgrid-5cols: 5 Columns
+
+    listgriditems:
+      type: collection.list
+      array: true
+      label: Content Lists
+      description: Create each item to appear in the content row.
+      value: title
+      ajax: true
+
+      fields:
+        .title:
+          type: input.text
+          label: Title
+          skip: true
+        .image:
+          type: input.imagepicker
+          label: Image
+        .icon:
+          type: input.icon
+          label: Icon
+        .link:
+          type: input.text
+          label: Item Link
+          description: Specify the item link address.          
+        .headline:
+          type: input.text
+          label: Headline
+        .titlebottom:
+          type: input.text
+          label: Title Bottom
+        .tag:
+          type: input.text
+          label: Tag
+        .variation:
+          type: input.block-variations
+          label: Block Variation
+        .class:
+          type: input.selectize
+          label: CSS Classes

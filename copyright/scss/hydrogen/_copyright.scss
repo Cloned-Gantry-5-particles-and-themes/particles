@@ -1,0 +1,13 @@
+.g-copyright {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: get-font-family($font-family-title);
+    font-weight: $font-weight-bold;
+	//font-size: 0.8125rem;
+	//line-height: 1.25rem;
+
+	@include breakpoint(mobile-only) {
+		text-align: center;
+	}
+}

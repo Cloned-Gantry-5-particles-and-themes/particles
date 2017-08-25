@@ -1,0 +1,126 @@
+name: Mini Player
+description: Play music through audio player interface.
+type: particle
+icon: fa-soundcloud
+
+form:
+  overrideable: false
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable particle.
+      default: true
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the title text.
+      placeholder: Enter title
+
+    nowplaying:
+      type: input.text
+      label: Now Playing Label
+      description: Customize the now playing text.
+      placeholder: Now Playing
+      default: Now Playing
+
+    cols:
+      type: select.select
+      label: Grid Column
+      description: Select the grid column amount
+      placeholder: 'Select...'
+      default: g-miniplayergrid-3cols
+      options:
+        g-miniplayergrid-auto: Auto
+        g-miniplayergrid-2cols: 2 Columns
+        g-miniplayergrid-3cols: 3 Columns
+        g-miniplayergrid-4cols: 4 Columns
+
+    _info:
+      type: separator.note
+      class: alert alert-info
+      content: Please note that you need <a href="http://soundcloud.com/you/apps/new" target="_blank">SoundCloud Client ID</a> for SoundCloud audio files. Obtaining Client ID is easy and free. After registration, enter your Client ID in field below.
+
+    soundcloudclientid:
+      type: input.text
+      label: SoundCloud Client ID
+      description: Provide client id.
+      placeholder: Enter client id here
+
+    items:
+      type: collection.list
+      array: true
+      label: Tracks
+      description: Add audio player items.
+      value: title
+      ajax: true
+      fields:
+        .title:
+          type: input.text
+          label: Item Title
+          description: Customize item title.
+          placeholder: Enter item title.
+        .artist:
+          type: input.text
+          label: Artist
+          description: Customize artist name.
+          placeholder: Enter artist name.
+        .tracktitle:
+          type: input.text
+          label: Item Title
+          description: Customize item title.
+          placeholder: Enter item title.
+        .releasedate:
+          type: input.text
+          label: Release Date
+          description: Customize the release date.
+          placeholder: Enter release date.
+        .cover:
+          type: input.imagepicker
+          label: Album Cover
+          description: Select album cover.
+        .source:
+          type: select.selectize
+          label: Audio Source
+          description: Audio source. Local, external url or SoundCloud.
+          placeholder: 'Select...'
+          default: external
+          options:
+              external: External Url
+              local: Local File
+              soundcloud: SoundCloud Track
+        .externalurl:
+          type: input.text
+          label: External Url
+          description: URL for external audio file
+        .localurl:
+          type: input.filepicker
+          label: Local Audio
+          description: Select desired audio file.
+        .soundcloudurl:
+          type: input.text
+          label: SoundCloud Track
+          description: Soundcloud track number. Grab it from embed code.
+          placeholder: '180145889'
+        .coverartist:
+          type: select.select
+          label: Artist
+          description: Enable or disable artist on album cover.
+          default: disabled
+          options:
+            enabled: Enable
+            disabled: Disable
+        .covertrack:
+          type: select.select
+          label: Track Name
+          description: Enable or disable track name on album cover.
+          default: disabled
+          options:
+            enabled: Enable
+            disabled: Disable

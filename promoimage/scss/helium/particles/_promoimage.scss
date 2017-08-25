@@ -1,0 +1,125 @@
+.g-promoimage {
+    *,  *:before,  *:after {
+        box-sizing: border-box !important;
+    }
+    position: relative;
+    text-align: center;
+    .g-promoimage-effect {
+        display: block;
+        border-radius: $border-radius;
+        background: $accent-color-1;
+        margin: 0;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        width: 100%;
+        img {
+            position: relative;
+            opacity: 0.9;
+            @include transition(all 0.25s);
+        }
+    }
+    .g-promoimage-iconbutton {
+        border: 5px solid fadeout($black, 15%);
+        background: fadeout($accent-color-1, 15%);
+        color: $black;
+        border-radius: 100%;
+        bottom: 0;
+        font-family: FontAwesome;
+        content: "\f0f6";
+        height: 50px;
+        left: 50%;
+        line-height: 42px;
+        margin-left: -25px;
+        margin-top: -25px;
+        position: absolute;
+        z-index: 11;
+        text-align: center;
+        top: 50%;
+        width: 50px;
+        @include transition(transform 0.25s);
+    }
+    .g-promoimage-caption {
+        background: $black;
+        color: $white;
+        padding: 0.75rem;
+        position: absolute;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        height: 3.5rem;
+        width: 100%;
+        @include transform(translate3d(0, 100%, 0));
+        @include transition(transform 0.35s);
+        @include backface-visibility(hidden);
+        &:before, &:after {
+            pointer-events: none;
+        }
+    }
+    .g-promoimage-title {
+        display: inline-block;
+        font-family: get-font-family($font-family-title);
+        font-weight: $font-weight-bold;
+        font-size: $core-font-size + 0.1;
+        float: left;
+    }
+    .g-promoimage-icon a {
+        float: right;
+        span:before {
+            display: inline-block;
+            padding: 8px 10px;
+            speak: none;
+        }
+    }
+    .g-promoimage-title,
+    .g-promoimage-icon a {
+        @include transform(translate3d(0, 200%, 0));
+        @include transition(transform 0.35s);
+    }
+    .g-promoimage-desc {
+        position: absolute;
+        bottom: 130%;
+        opacity: 0;
+        width: 100%;
+        left: 0;
+        padding: 0.75rem;
+        @include transition(opacity 0.35s);
+        @include backface-visibility(hidden);
+    }
+    .g-promoimage-effect:hover {
+        background: darken($accent-color-1, 25%);
+        img {
+            opacity: 0.75;
+            -webkit-filter: blur(3px);
+            -moz-filter: blur(3px);
+            -o-filter: blur(3px);
+            -ms-filter: blur(3px);
+            filter: blur(3px);
+        }
+        .g-promoimage-iconbutton{
+            @include transform(scale(0));
+        }
+        .g-promoimage-desc {
+            opacity: 1;
+        }
+        .g-promoimage-caption,
+        .g-promoimage-title,
+        .g-promoimage-icon a {
+            @include transform(translate3d(0, 0, 0));
+        }
+        .g-promoimage-title {
+            @include transition-delay(0.05s);
+        }
+        .g-promoimage-icon a {
+            &:nth-child(3) {
+                @include transition-delay(0.1s);
+            }
+            &:nth-child(2) {
+                @include transition-delay(0.15s);
+            }
+            &:first-child {
+                @include transition-delay(0.2s);
+            }
+        }
+    }
+}

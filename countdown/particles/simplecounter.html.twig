@@ -1,13 +1,6 @@
 {% extends '@nucleus/partials/particle.html.twig' %}
 
 {% block javascript %}
-    {% if gantry.platform.getName() == 'joomla' %}
-        {% do joomla.html('behavior.framework') %}
-    {% elseif gantry.platform.getName() == 'wordpress' and (gantry.platform.call('wp_script_is', 'mootools.js') == true or gantry.platform.call('wp_script_is', 'rok_mootools_js') == true) %}
-    {% else %}
-        <script type="text/javascript" src="{{ url('https://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js') }}"></script>
-    {% endif %}
-
     <script src="{{ url('gantry-theme://js/simplecounter.js') }}"></script>
     <script src="{{ url('gantry-theme://js/simplecounter.init.js') }}"></script>
 {% endblock %}

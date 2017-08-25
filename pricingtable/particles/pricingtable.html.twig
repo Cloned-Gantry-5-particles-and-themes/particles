@@ -1,0 +1,81 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+    {% styles with { priority: -10 } %}
+    <style>
+        {% for table in particle.tables %}
+            {% if table.customcolor %}
+            #g-pricingtable-col-item-{{ loop.index  }} .g-pricingtable-plan a, #g-pricingtable-col-item-{{ loop.index  }} .g-pricingtable .g-pricingtable-price, #g-pricingtable-col-item-{{ loop.index  }} .g-pricingtable .g-pricingtable-item .fa {
+                color: {{ table.customcolor }};
+            }
+
+            #g-pricingtable-col-item-{{ loop.index  }} .button {
+                background-color: {{ table.customcolor }};
+            }
+            {% endif %}
+        {% endfor %}
+    </style>
+    {% endstyles -%}
+
+    <div class="{{ particle.class|e }}">
+
+        {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+        {% if particle.headertext %}
+            <div class="g-pricingtable-headertext">{{ particle.headertext|raw }}</div>
+        {% endif %}
+
+        <div id="g-pricingtable-{{ id }}" class="g-pricingtable-container {{ particle.columns|default('g-pricingtable-3-col')|e }}">
+
+            {% for table in particle.tables %}
+                <div class="g-pricingtable-col-item {% if table.accent %}g-pricingtable-{{ table.accent }}{% endif %}" id="g-pricingtable-col-item-{{ loop.index }}">
+                    <ul class="g-pricingtable {{ table.class|e }}">
+                        {% if table.ribbon %}<li class="g-pricingtable-ribbon">{{ table.ribbon|e }}</li> {% endif %}
+                        {% if table.icon %}<li class="g-pricingtable-icon"><i class="{{ table.icon|e }}"></i></li>{% endif %}
+
+                        {% if table.plan %}
+                            <li class="g-pricingtable-plan">
+                                {% if table.buttontext %}
+                                <a target="{{ table.buttontarget|default('_self')|e }}" href="{{ table.buttonlink|e }}" title="{{ table.buttontext|e }}">
+                                {% endif %}
+
+                                    {{ table.plan|raw }}
+
+                                {% if table.buttontext %}
+                                </a>
+                                {% endif %}
+                            </li>
+                        {% endif %}
+
+                        {% if table.price %}<li class="g-pricingtable-price">{{ table.price|raw }}</li>{% endif %}
+                        {% if table.period %}<li class="g-pricingtable-period">{{ table.period|raw }}</li>{% endif %}
+                        {% if table.desc %}<li class="g-pricingtable-desc">{{ table.desc|raw }}</li> {% endif %}
+
+                        {% for key, item in table.items %}
+                            <li class="g-pricingtable-item g-pricingtable-item-{{ key|e }} {{ item.class|e }}">
+                                <i class="fa fa-check"></i>
+                                {{ item.text|raw }}
+                            </li>
+                        {% endfor %}
+
+                        {% if table.buttontext %}
+                            <li class="g-pricingtable-cta">
+                                <a target="{{ table.buttontarget|default('_self')|e }}" href="{{ table.buttonlink|e }}" title="{{ table.buttontext|e }}" class="button {{ table.buttonclass|e }}">
+                                    {{ table.buttontext|e }}
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        {% if particle.footertext %}
+            <div class="g-pricingtable-footertext">{{ particle.footertext|raw }}</div>
+        {% endif %}
+
+    </div>
+{% endblock %}

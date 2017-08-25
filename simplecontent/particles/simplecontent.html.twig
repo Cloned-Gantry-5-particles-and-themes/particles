@@ -1,0 +1,52 @@
+{% extends '@nucleus/partials/particle.html.twig' %}
+
+{% block particle %}
+
+    <div class="{{ particle.class|e }}">
+        <div class="g-simplecontent">
+
+            {% if particle.title %}<h2 class="g-title">{{ particle.title|raw }}</h2>{% endif %}
+
+            {% for item in particle.items %}
+                <div class="g-simplecontent-item g-simplecontent-layout-{{ item.layout }}">
+                    {% set particle_item_title %}
+                        <div class="g-simplecontent-item-content-title">{{ item.content_title|raw }}</div>
+                    {% endset %}
+
+                    {% set particle_item_author %}
+                        <div class="g-simplecontent-item-author">{{ item.author|raw }}</div>
+                    {% endset %}
+
+                    {% set particle_item_created_date %}
+                        <div class="g-simplecontent-item-created-date">{{ item.created_date|raw }}</div>
+                    {% endset %}
+
+                    {% if item.layout == 'header' %}
+                        {% if item.content_title %}{{ particle_item_title }}{% endif %}
+                        {% if item.author %}{{ particle_item_author }}{% endif %}
+                        {% if item.created_date %}{{ particle_item_created_date }}{% endif %}
+                    {% endif %}
+
+                    {% if item.layout != 'header' %}
+                        {% if item.created_date %}{{ particle_item_created_date }}{% endif %}
+                        {% if item.content_title %}{{ particle_item_title }}{% endif %}
+                        {% if item.author %}{{ particle_item_author }}{% endif %}
+                    {% endif %}
+
+                    {% if item.leading_content %}<div class="g-simplecontent-item-leading-content">{{ item.leading_content|raw }}</div>{% endif %}
+                    {% if item.main_content %}<div class="g-simplecontent-item-main-content">{{ item.main_content|raw }}</div>{% endif %}
+
+                    {% if item.readmore_label %}
+                        <div class="g-simplecontent-item-readmore-container">
+                            <a target="{{ item.readmore_target|default('_self')|e }}" href="{{ item.readmore_link|e }}" class="g-simplecontent-item-readmore {{ item.readmore_class|e }}">
+                                {{ item.readmore_label|raw }}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

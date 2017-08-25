@@ -1,0 +1,14 @@
+.g-blogcontent {
+	.g-blogcontent-title {
+		margin: 0;
+	}
+	p {
+		@extend .g-para;
+	}
+	@include breakpoint(mobile-only) {
+		.g-horizontalmenu li {
+			display: block;
+			margin: 0;
+		}
+	}
+}

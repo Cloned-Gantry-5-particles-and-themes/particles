@@ -1,0 +1,79 @@
+name: Icon Headline
+description: Display icon headline content.
+type: particle
+icon: fa-leaf
+
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable icon menu particles.
+      default: true
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the title text.
+      placeholder: Enter title
+
+    readmore:
+      type: input.text
+      label: Readmore Text
+      description: Specify the readmore text.
+
+    readmoreicon:
+      type: input.icon
+      label: Readmore Icon
+      description: Specify the readmore icon.
+
+    link:
+      type: input.text
+      label: Readmore Link
+      description: Specify the readmore link address.
+
+    cols:
+      type: select.select
+      label: Grid Column
+      description: Select the grid column amount for the list items
+      placeholder: 'Select...'
+      default: g-listgrid-3cols
+      options:
+        g-listgrid-2cols: 2 Columns
+        g-listgrid-3cols: 3 Columns
+        g-listgrid-4cols: 4 Columns
+        g-listgrid-5cols: 5 Columns
+
+    listgriditems:
+      type: collection.list
+      array: true
+      label: Content Lists
+      description: Create each item to appear in the content row.
+      value: title
+      ajax: true
+
+      fields:
+        .title:
+          type: input.text
+          label: Title
+          skip: true
+        .icon:
+          type: input.icon
+          label: Icon
+        .headline:
+          type: input.text
+          label: Headline
+        .tag:
+          type: input.text
+          label: Subheading
+        .variation:
+          type: input.block-variations
+          label: Block Variation
+        .class:
+          type: input.selectize
+          label: CSS Classes

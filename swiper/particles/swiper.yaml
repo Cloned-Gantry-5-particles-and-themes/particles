@@ -1,0 +1,48 @@
+name: Swiper
+description: Display swiper.
+type: particle
+icon: fa-newspaper-o
+
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable icon menu particles.
+      default: true
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the title text.
+      placeholder: Enter title
+
+    items:
+      type: collection.list
+      array: true
+      label: Swiper Items
+      description: Create each swiper item to display.
+      value: name
+      ajax: true
+
+      fields:
+        .image:
+          type: input.imagepicker
+          label: Image
+          description: Select desired image.
+        .title:
+          type: input.text
+          label: Text
+        .link:
+          type: input.text
+          label: Link
+        .desc:
+          type: textarea.textarea
+          label: Description
+          description: Customize the description.
+          placeholder: Enter short description

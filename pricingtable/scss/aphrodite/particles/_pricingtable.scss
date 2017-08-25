@@ -1,0 +1,203 @@
+.g-pricingtable-container {
+    @include display(flex);
+    @include flex-flow(row);
+    @include flex-wrap(wrap);
+}
+
+.g-pricingtable-col-item {
+    @include display(flex);
+    overflow: auto;
+    padding: $content-margin;
+
+    .g-pricingtable-1-col & {
+        @include flex(0 1 100%);
+        width: 100%;
+    }
+
+    .g-pricingtable-2-col & {
+        @include flex(0 1 50%);
+        width: 50%;
+    }
+
+    .g-pricingtable-3-col & {
+        @include flex(auto 1 33.33333%);
+        width: 33.33333%;
+    }
+
+    .g-pricingtable-4-col & {
+        @include flex(0 1 25%);
+        width: 25%;
+
+        @include breakpoint(desktop-range) {
+            @include flex(0 1 50%);
+            width: 50%;
+        }
+
+        @include breakpoint(tablet-range) {
+            @include flex(0 1 50%);
+            width: 50%;
+        }
+    }
+
+    .g-pricingtable-5-col & {
+        @include flex(0 1 20%);
+        width: 20%;
+    }
+
+    .g-pricingtable-6-col & {
+        @include flex(0 1 16.66667%);
+        width: 16.66667%;
+    }
+
+    @include breakpoint(mobile-only) {
+        @include flex(0 1 100% !important);
+        width: 100% !important;
+    }
+}
+
+.g-pricingtable-headertext {
+    margin-bottom: $content-margin + $content-padding;
+}
+
+.g-pricingtable-footertext {
+    margin-top: $content-margin + $content-padding;
+}
+
+.g-pricingtable {
+    width: 100%;
+    list-style: none;
+    border: 1px solid $border-color-light;
+    margin: 0;
+    padding-left: $content-padding;
+    padding-right: $content-padding;
+    position: relative;
+    overflow: hidden;
+
+    .button {
+        @extend %g-button;
+        margin: $content-padding 0;
+        padding: 0.4rem 1.5rem;
+        font-size: $core-font-size - 0.05;
+    }
+
+    .g-pricingtable-ribbon {
+        z-index: 2;
+        position: absolute;
+        line-height: $core-line-height;
+        font-size: $core-font-size - 0.4;
+        font-weight: $font-weight-bold;
+        font-family: get-font-family($font-family-default);
+        color: $white;
+        text-transform: uppercase;
+        background: $accent-color-1;
+        width: 135px;
+        top: 30px;
+        right: -30px;
+        text-align: center;
+        letter-spacing: 1px;
+        @include transform(rotate(45deg));
+    }
+
+    .g-pricingtable-plan {
+        font-family: get-font-family($font-family-title);
+        font-size: $core-font-size;
+        text-transform: uppercase;
+        font-weight: $font-weight-regular;
+        line-height: $core-line-height - 0.5;
+        padding: $content-padding 0;
+    }
+    .g-pricingtable-subtitle {
+        padding-top: 0;
+        margin-top: -1rem;
+        font-size: $core-font-size - 0.1;
+    }
+
+    .g-pricingtable-price {
+        color: $accent-color-1;
+        font-family: get-font-family($font-family-promo);
+        font-size: $core-font-size + 1.2;
+        font-weight: $font-weight-regular;
+
+        @include breakpoint(tablet-range) {
+            font-size: $core-font-size + 0.8;
+        }
+        @include breakpoint(desktop-range) {
+            font-size: $core-font-size + 0.9;
+        }
+
+        @include breakpoint(mobile-only) {
+            font-size: $core-font-size + 1;
+        }
+    }
+
+    .g-pricingtable-period {
+        font-size: $core-font-size + 0.5;
+        font-family: get-font-family($font-family-promo);
+        font-weight: $font-weight-light;
+        line-height: $core-line-height - 1;
+    }
+
+    .g-pricingtable-desc {
+        font-family: get-font-family($font-family-subpromo);
+        font-size: $core-font-size - 0.1;
+        padding: $content-padding 0;
+    }
+
+    .g-pricingtable-item {
+        font-size: $core-font-size + 0.1;
+        font-family: get-font-family($font-family-default);
+        font-weight: $font-weight-regular;
+        padding-bottom: $content-margin;
+
+        &.g-pricingtable-item-0 {
+            position: relative;
+            padding-top: $content-padding;
+        }
+
+        .fa {
+            color: $accent-color-1;
+            padding-right: $content-margin;
+
+            .dir-rtl & {
+                padding-right: 0;
+                padding-left: $content-padding - 0.3;
+            }
+        }
+    }
+}
+
+.g-pricingtable-accent1 {
+    .g-pricingtable {
+        .g-pricingtable-plan a, .g-pricingtable-price, .g-pricingtable-item .fa, .g-pricingtable-item, .g-pricingtable-period {
+            color: $accent-color-1;
+        }
+
+        .g-pricingtable-ribbon {
+            background-color: $accent-color-1;
+        }
+    }
+}
+
+.g-pricingtable-accent2 {
+    .g-pricingtable {
+        .g-pricingtable-plan a, .g-pricingtable-price, .g-pricingtable-item .fa, .g-pricingtable-item, .g-pricingtable-period {
+            color: $accent-color-2;
+        }
+
+        .button {
+            @include background(linear-gradient($accent-color-2 ,lighten($accent-color-2, 20%)));
+            color: $white;
+            border: 1px solid transparent;
+
+            &:hover, &:active, &:focus {
+                border: 1px solid $border-color-light;
+                background: transparent;
+                color: $base-text-color !important;
+            }
+        }
+
+        .g-pricingtable-ribbon {
+            background-color: $accent-color-2;
+        }
+    }
+}

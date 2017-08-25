@@ -1,0 +1,74 @@
+name: Event List
+description: Simple particle for displaying events.
+type: particle
+icon: fa-map-marker
+
+form:
+  overrideable: false
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Globally enable particle.
+      default: true
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      description: CSS class name for the particle.
+
+    title:
+      type: input.text
+      label: Title
+      description: Customize the title text.
+      placeholder: Enter title
+
+    items:
+      type: collection.list
+      array: true
+      label: Events
+      description: Create each item to appear in the content row.
+      value: title
+      ajax: true
+      fields:
+        .date1:
+          type: input.text
+          label: Date Line 1
+          description: Customize first date line.
+          placeholder: Enter month name
+        .date2:
+          type: input.text
+          label: Date Line 2
+          description: Customize second date line.
+          placeholder: Enter day of the month
+        .location1:
+          type: input.text
+          label: Location Line 1
+          description: Customize first location line.
+          placeholder: Enter location
+        .location2:
+          type: input.text
+          label: Location Line 2
+          description: Customize second location line.
+          placeholder: Enter second location
+        .buttontext:
+          type: input.text
+          label: Button Label
+          description: Specify the button label.
+        .buttonlink:
+          type: input.text
+          label: Button Link
+          description: Specify the button link.
+        .buttontarget:
+          type: select.selectize
+          label: Target
+          description: Target browser window when item is clicked.
+          placeholder: 'Select...'
+          default: _self
+          options:
+              _self: Self
+              _blank: New Window
+        .buttonclass:
+          type: input.selectize
+          label: Button Classes
+          description: CSS class names for the button.

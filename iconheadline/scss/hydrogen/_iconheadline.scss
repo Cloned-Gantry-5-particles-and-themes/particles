@@ -1,0 +1,38 @@
+%g-iconheadline-icon {
+    position: absolute;
+    left: 0;
+    font-size: 3rem;
+    width: 62px;
+    height: 48px;
+    line-height: 48px;
+}
+%g-iconheadline-item {
+	position: relative;
+    padding-left: 75px;
+    margin: 1rem 0.5rem;
+    @include breakpoint(tablet-range) {
+        margin: 0;
+    } 
+}
+.g-iconheadline {
+	.g-iconheadline-item {
+		@extend %g-iconheadline-item;
+	}
+    .g-iconheadline-icon {
+		@extend %g-iconheadline-icon;
+    }
+	.g-iconheadline-link {
+		margin-top: 1.5rem;
+		.title-center & {
+			text-align: center;
+		}
+	}
+  &.g-iconheadline-tablet-100 {
+		@include breakpoint(tablet-range) {
+      .g-listgrid-item {
+        width: 100%;
+        @include flex-basis(100);
+      }
+    }
+  }
+}

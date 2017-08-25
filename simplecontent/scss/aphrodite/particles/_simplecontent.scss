@@ -1,0 +1,76 @@
+.g-simplecontent-item-created-date {
+    font-size: $core-font-size - 0.2;
+    text-transform: uppercase;
+}
+.g-simplecontent-layout-header {
+    padding: $content-padding 0;
+}
+.g-simplecontent-item-content-title {
+    font-size: $h2-font-size;
+    font-weight: $font-weight-regular;
+    margin: ($content-margin - 0.1) 0;
+
+    .g-simplecontent-layout-header & {
+        font-family: get-font-family($font-family-title);
+        font-size: $h1-font-size;
+        font-weight: $font-weight-light;
+        line-height: $core-line-height;
+
+        @include breakpoint(desktop-range) {
+            font-size: $core-font-size + 1.75;
+        }
+
+        @include breakpoint(tablet-range) {
+            font-size: $core-font-size + 1.5;
+        }
+
+        @include breakpoint(mobile-only) {
+            font-size: $core-font-size + 1;
+        }
+    }
+}
+
+.g-simplecontent-item-author {
+    font-size: $core-font-size - 0.1;
+    font-weight: $font-weight-bold;
+    margin-bottom: $content-margin;
+}
+
+.g-simplecontent-item-leading-content {
+    @extend .g-lead;
+    margin-bottom: $content-margin;
+    font-size: $core-font-size + 0.3;
+
+    .g-simplecontent-layout-header & {
+        color: $accent-color-2;
+        font-size: $core-font-size + 0.9;
+    }
+}
+
+.g-simplecontent-item-main-content {
+    font-size: $core-font-size - 0.1;
+    margin-bottom: $content-margin;
+
+    .g-simplecontent-layout-header & {
+        font-size: $core-font-size;
+        margin-bottom: $content-margin * 2;
+    }
+}
+
+.g-simplecontent-item-readmore-container {
+    margin-top: $content-margin;
+    padding-top: $content-padding;
+}
+
+.g-simplecontent-item-author, .g-simplecontent-item-created-date {
+    .g-simplecontent-layout-header & {
+        display: inline-block;
+        margin: 0;
+        padding-right: $content-padding;
+        font-family: get-font-family($font-family-default);
+        font-weight: $font-weight-light;
+        font-size: $core-font-size + 0.15;
+        line-height: $core-line-height + 0.5;
+        text-transform: none;
+    }
+}
